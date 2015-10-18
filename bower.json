@@ -1,0 +1,11 @@
+{
+  "name": "fabric.js color matrix filter extension",
+  "version": "0.0.1",
+  "authors": [
+    "Simon Kunz"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "fabric": "~1.5.0"
+  }
+}

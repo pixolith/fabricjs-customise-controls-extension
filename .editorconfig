@@ -1,0 +1,43 @@
+# EditorConfig http://EditorConfig.org
+
+# Root EditorConfig file
+root = true
+
+# Universal
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+
+# PHP - PSR-2 standards
+[**.php]
+indent_style = space
+indent_size = 4
+
+# HTML
+[**.html]
+indent_style = space
+indent_size = 4
+
+# SVG
+[**.svg]
+indent_style = space
+indent_size = 4
+
+# JavaScript
+[**.js]
+indent_style = space
+indent_size = 4
+
+# CSS
+[**.css]
+indent_style = space
+indent_size = 4
+
+# SASS
+[**.scss]
+indent_style = space
+indent_size = 4

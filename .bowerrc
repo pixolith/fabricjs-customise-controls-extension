@@ -1,0 +1,5 @@
+{
+    "directory": "dependencies",
+    "analytics": false,
+    "timeout": 120000
+}

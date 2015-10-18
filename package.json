@@ -1,0 +1,9 @@
+{
+  "name": "fabric.js",
+  "version": "0.0.1",
+  "devDependencies": {
+    "jscs": "^2.2.1"
+  },
+  "author": "SK",
+  "license": "MIT"
+}
