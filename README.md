@@ -25,24 +25,24 @@ Add customiseControls.js (or its minified version) to your fabric.js project and
 fabric.Canvas.prototype.overwriteActions = true;
 ```
 
-- This will overwrite the actions handler for adding custom actions.
+This will overwrite the actions handler for adding custom actions.
 
-- The setter method for specifying which actions you want to change can be used like this:
+The setter method for specifying which actions you want to change can be used like this:
 
 ```
 fabric.Canvas.prototype.setCustomActions( 'tl', 'rotate' );
 ```
 
-- 'tl' meaning the top-left corner will have the action 'rotate'.
+tl' meaning the top-left corner will have the action 'rotate'.
 
-- currently the following actions are possible:
+currently the following actions are possible:
 
-+drag
-+scale
-+scaleX
-+scaleY
-+rotate
-+remove (custom)
+* drag
+* scale
+* scaleX
+* scaleY
+* rotate
+* remove (custom)
 
 Default is: 'scale'
 
@@ -52,17 +52,18 @@ Default is: 'scale'
 fabric.Canvas.prototype.fixedCursors = true;
 ```
 
-- This will overwrite the cursor handler for adding custom cursors.
+This will overwrite the cursor handler for adding custom cursors.
 
-- The setter method for specifying which corner cursors you want to change can be used like this:
+The setter method for specifying which corner cursors you want to change can be used like this:
 
 ```
 fabric.Canvas.prototype.setCustomCornerCursor( 'tl', 'cow.png' );
 fabric.Canvas.prototype.setCustomCornerCursor( 'bl', 'pointer' );
 ```
 
-- Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a build-in cursor.
-- Default is: resize direction cursor
+Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a build-in cursor.
+
+Default is: resize direction cursor
 
 #### 3.
 
@@ -70,9 +71,9 @@ fabric.Canvas.prototype.setCustomCornerCursor( 'bl', 'pointer' );
 fabric.Object.prototype.useImageIcons = true;
 ```
 
-- This will overwrite the controls handler for adding custom icons.
+This will overwrite the controls handler for adding custom icons.
 
- -The setter method for specifying which actions you want to change can be used like this:
+The setter method for specifying which actions you want to change can be used like this:
 
 ```
 fabric.Object.prototype.setCustomCorner( 'tl', 'cow.png' );
@@ -81,9 +82,9 @@ fabric.Object.prototype.setCustomCorner( 'bl', 'cow.png' );
 fabric.Object.prototype.setCustomCorner( 'br', 'cow.png' );
 ```
 
-- Default: currently not drawing anything but displaying a warning.
+Default: currently not drawing anything but displaying a warning.
 
-- You can set size of the control icons with the standard corner size setting. It is also still possible to change the border color
+You can set size of the control icons with the standard corner size setting. It is also still possible to change the border color
 of the bounding rectangle of the object.
 
 ```
