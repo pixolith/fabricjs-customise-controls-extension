@@ -22,16 +22,14 @@ Add customiseControls.js (or its minified version) to your fabric.js project and
 ### There are three settings you can enable:
 #### 1.
 ```
-fabric.Canvas.prototype.overwriteActions = true;
+fabric.Canvas.prototype.setCustomActions( {
+    tl: 'rotate',
+    tr: 'scale',
+    bl: 'remove'
+} );
 ```
 
 This will overwrite the actions handler for adding custom actions.
-
-The setter method for specifying which actions you want to change can be used like this:
-
-```
-fabric.Canvas.prototype.setCustomActions( 'tl', 'rotate' );
-```
 
 tl' meaning the top-left corner will have the action 'rotate'.
 
@@ -49,17 +47,13 @@ Default is: 'scale'
 #### 2.
 
 ```
-fabric.Canvas.prototype.fixedCursors = true;
+fabric.Canvas.prototype.setCustomCornerCursor( {
+    tl: 'cow.png',
+    bl: 'pointer'
+} );
 ```
 
 This will overwrite the cursor handler for adding custom cursors.
-
-The setter method for specifying which corner cursors you want to change can be used like this:
-
-```
-fabric.Canvas.prototype.setCustomCornerCursor( 'tl', 'cow.png' );
-fabric.Canvas.prototype.setCustomCornerCursor( 'bl', 'pointer' );
-```
 
 Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a build-in cursor.
 
@@ -68,19 +62,15 @@ Default is: resize direction cursor
 #### 3.
 
 ```
-fabric.Object.prototype.useImageIcons = true;
+fabric.Object.prototype.setCustomCorner( {
+    tl: 'cow.png',
+    tr: 'cow.png',
+    bl: 'cow.png',
+    br: 'cow.png'
+} );
 ```
 
 This will overwrite the controls handler for adding custom icons.
-
-The setter method for specifying which actions you want to change can be used like this:
-
-```
-fabric.Object.prototype.setCustomCorner( 'tl', 'cow.png' );
-fabric.Object.prototype.setCustomCorner( 'tr', 'cow.png' );
-fabric.Object.prototype.setCustomCorner( 'bl', 'cow.png' );
-fabric.Object.prototype.setCustomCorner( 'br', 'cow.png' );
-```
 
 Default: currently not drawing anything but displaying a warning.
 
@@ -97,7 +87,7 @@ fabric.Object.prototype.set( {
 That should be it, feel free to contact me concerning bugs or improvements.
 
 ## Example Implementation
-There is an example implementation in the example folder, just open the index file and check out how the filters look like
+There is an example implementation in the example folder, just open the index file and check out how the custom handles look like
 when applied to the test image. The source for that is also provided in the example.js.
 
 ## Usage
