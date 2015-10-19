@@ -28,110 +28,117 @@
          * @param {String} iconUrl to the icon image
          */
 
-        setCustomCorner: function( corner, iconUrl ) {
+        setCustomCorner: function( obj ) {
+            this.useImageIcons = true;
             var self = this,
+                corner,
                 icon = new Image();
-            switch ( corner ) {
-                case 'tl':
-                    icon.onload = function() {
-                        self.tlIcon = icon;
-                    };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+            for ( corner in obj ) {
+                if (obj.hasOwnProperty(corner)) {
+                    switch ( corner  ) {
+                        case 'tl':
+                            icon.onload = function() {
+                                self.tlIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    break;
-                case 'tr':
-                    icon.onload = function() {
-                        self.trIcon = icon;
-                    };
+                            icon.src = obj [ corner ];
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            break;
+                        case 'tr':
+                            icon.onload = function() {
+                                self.trIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'bl':
-                    icon.onload = function() {
-                        self.blIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'bl':
+                            icon.onload = function() {
+                                self.blIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'br':
-                    icon.onload = function() {
-                        self.brIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'br':
+                            icon.onload = function() {
+                                self.brIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'mt':
-                    icon.onload = function() {
-                        self.mtIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'mt':
+                            icon.onload = function() {
+                                self.mtIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'mb':
-                    icon.onload = function() {
-                        self.mbIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'mb':
+                            icon.onload = function() {
+                                self.mbIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'mr':
-                    icon.onload = function() {
-                        self.mrIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'mr':
+                            icon.onload = function() {
+                                self.mrIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'ml':
-                    icon.onload = function() {
-                        self.mlIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'ml':
+                            icon.onload = function() {
+                                self.mlIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
-                case 'mtr':
-                    icon.onload = function() {
-                        self.mtrIcon = icon;
-                    };
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
 
-                    icon.onerror = function() {
-                        fabric.warn( corner + 'icon is not an image' );
-                    };
+                            icon.src = obj [ corner ];
+                            break;
+                        case 'mtr':
+                            icon.onload = function() {
+                                self.mtrIcon = icon;
+                            };
 
-                    icon.src = iconUrl;
-                    break;
+                            icon.onerror = function() {
+                                fabric.warn( corner + 'icon is not an image' );
+                            };
+
+                            icon.src = obj [ corner ];
+                            break;
+                    }
+                }
             }
         },
 
@@ -277,39 +284,45 @@
 
         /**
          * Set a custom corner action
-         * @param {String} corner type e.g 'tl'.
-         * @param {String} action of the corner e.g 'scale'
+         * @param {Object} obj with corner and action.
          */
 
-        setCustomActions: function( corner, action ) {
-            switch ( corner ) {
-                case 'tl':
-                    this.tlAction = action;
-                    break;
-                case 'tr':
-                    this.trAction = action;
-                    break;
-                case 'bl':
-                    this.blAction = action;
-                    break;
-                case 'br':
-                    this.brAction = action;
-                    break;
-                case 'mt':
-                    this.mtAction = action;
-                    break;
-                case 'mb':
-                    this.mbAction = action;
-                    break;
-                case 'mr':
-                    this.mrAction = action;
-                    break;
-                case 'ml':
-                    this.mlAction = action;
-                    break;
-                case 'mtr':
-                    this.mtrAction = action;
-                    break;
+        setCustomActions: function( obj ) {
+            var self = this,
+                corner;
+            this.overwriteActions = true;
+            for ( corner in obj ) {
+                if ( obj.hasOwnProperty( corner ) ) {
+                    switch ( corner ) {
+                        case 'tl':
+                            self.tlAction = obj[ corner ];
+                            break;
+                        case 'tr':
+                            self.trAction = obj[ corner ];
+                            break;
+                        case 'bl':
+                            self.blAction = obj[ corner ];
+                            break;
+                        case 'br':
+                            self.brAction = obj[ corner ];
+                            break;
+                        case 'mt':
+                            self.mtAction = obj[ corner ];
+                            break;
+                        case 'mb':
+                            self.mbAction = obj[ corner ];
+                            break;
+                        case 'mr':
+                            self.mrAction = obj[ corner ];
+                            break;
+                        case 'ml':
+                            self.mlAction = obj[ corner ];
+                            break;
+                        case 'mtr':
+                            self.mtrAction = obj[ corner ];
+                            break;
+                    }
+                }
             }
         },
 
@@ -431,39 +444,45 @@
 
         /**
          * Set a custom corner cursor
-         * @param {String} corner type e.g 'tl'.
-         * @param {String} cursorIconUrl to the icon image
+         * @param {Object} obj with corner and cursor url/type.
          */
 
-        setCustomCornerCursor: function( corner, cursorIconUrl ) {
-            switch ( corner ) {
-                case 'tl':
-                    this.tlcursorIcon = cursorIconUrl;
-                    break;
-                case 'tr':
-                    this.trcursorIcon = cursorIconUrl;
-                    break;
-                case 'bl':
-                    this.blcursorIcon = cursorIconUrl;
-                    break;
-                case 'br':
-                    this.brcursorIcon = cursorIconUrl;
-                    break;
-                case 'mt':
-                    this.mtcursorIcon = cursorIconUrl;
-                    break;
-                case 'mb':
-                    this.mbcursorIcon = cursorIconUrl;
-                    break;
-                case 'mr':
-                    this.mrcursorIcon = cursorIconUrl;
-                    break;
-                case 'ml':
-                    this.mlcursorIcon = cursorIconUrl;
-                    break;
-                case 'mtr':
-                    this.mtrcursorIcon = cursorIconUrl;
-                    break;
+        setCustomCornerCursor: function( obj ) {
+            var corner;
+            this.fixedCursors = true;
+
+            for ( corner in obj ) {
+                if ( obj.hasOwnProperty( corner ) ) {
+                    switch ( corner ) {
+                        case 'tl':
+                            this.tlcursorIcon = obj [ corner ];
+                            break;
+                        case 'tr':
+                            this.trcursorIcon = obj [ corner ];
+                            break;
+                        case 'bl':
+                            this.blcursorIcon = obj [ corner ];
+                            break;
+                        case 'br':
+                            this.brcursorIcon = obj [ corner ];
+                            break;
+                        case 'mt':
+                            this.mtcursorIcon = obj [ corner ];
+                            break;
+                        case 'mb':
+                            this.mbcursorIcon = obj [ corner ];
+                            break;
+                        case 'mr':
+                            this.mrcursorIcon = obj [ corner ];
+                            break;
+                        case 'ml':
+                            this.mlcursorIcon = obj [ corner ];
+                            break;
+                        case 'mtr':
+                            this.mtrcursorIcon = obj [ corner ];
+                            break;
+                    }
+                }
             }
         },
 

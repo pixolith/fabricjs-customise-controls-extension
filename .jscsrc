@@ -1,5 +1,4 @@
 {
-    "excludeFiles": ["youshallnotpass/public/js/build", "youshallnotpass/public/js/models"],
     "preset": "jquery",
     "maximumLineLength": 120,
     "requireCamelCaseOrUpperCaseIdentifiers": false,
