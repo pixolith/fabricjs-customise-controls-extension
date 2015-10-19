@@ -47,8 +47,9 @@ module.exports = function( grunt ) {
             options: {
                 github: {
                     repo: 'pixolith/fabricjs-customise-controls-extension' //put your user/repo here
+
                 },
-                npm: false,
+                npm: false
             }
         }
     } );

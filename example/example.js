@@ -3,7 +3,7 @@
     var image = document.createElement( 'img' ),
         canvas,
         width = 1000,
-        height = 1000;
+        height = 500;
 
     fabric.Canvas.prototype.setCustomActions( {
         tl: 'rotate',
@@ -27,11 +27,6 @@
         bl: 'cow.png',
         br: 'cow.png'
     } );
-
-    fabric.Object.prototype.setCustomCorner( 'tl', 'cow.png' );
-    fabric.Object.prototype.setCustomCorner( 'tr', 'cow.png' );
-    fabric.Object.prototype.setCustomCorner( 'bl', 'cow.png' );
-    fabric.Object.prototype.setCustomCorner( 'br', 'cow.png' );
 
     canvas = new fabric.Canvas( 'example', {
             width: width,
