@@ -24,115 +24,124 @@
 
         /**
          * Set a custom corner icon
-         * @param {String} corner type e.g 'tl'.
-         * @param {String} iconUrl to the icon image
+         * @param {Object} obj type and icon url.
          */
 
         setCustomCorner: function( obj ) {
             this.useImageIcons = true;
             var self = this,
                 corner,
-                icon = new Image();
+                icon;
 
             for ( corner in obj ) {
-                if (obj.hasOwnProperty(corner)) {
+                if ( obj.hasOwnProperty( corner ) ) {
                     switch ( corner  ) {
                         case 'tl':
+                            icon = new Image();
+
                             icon.onload = function() {
-                                self.tlIcon = icon;
+                                self.tlIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
 
                             break;
                         case 'tr':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.trIcon = icon;
+                                self.trIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'bl':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.blIcon = icon;
+                                self.blIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'br':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.brIcon = icon;
+                                self.brIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'mt':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.mtIcon = icon;
+                                self.mtIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'mb':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.mbIcon = icon;
+                                self.mbIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'mr':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.mrIcon = icon;
+                                self.mrIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'ml':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.mlIcon = icon;
+                                self.mlIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
                             break;
                         case 'mtr':
+                            icon = new Image();
                             icon.onload = function() {
-                                self.mtrIcon = icon;
+                                self.mtrIcon = this;
                             };
 
                             icon.onerror = function() {
-                                fabric.warn( corner + 'icon is not an image' );
+                                fabric.warn( this.src + 'icon is not an image' );
                             };
 
                             icon.src = obj [ corner ];
