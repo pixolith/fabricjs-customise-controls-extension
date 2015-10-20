@@ -1,6 +1,12 @@
 # Customise the controls of fabric.js
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
+# Install
+
+```
+bower install fabric-customise-controls
+```
+
 # Live Demo Page
 http://pixolith.github.io/fabricjs-customise-controls-extension/example/index.html
 
