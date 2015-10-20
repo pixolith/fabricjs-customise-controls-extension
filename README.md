@@ -89,7 +89,7 @@ This will overwrite the controls handler for adding custom icons.
 
 Default: currently not drawing anything but displaying a warning that your image might be corrupt.
 
-You can set size of the control icons or the border color with the standard setter too if you like to, yet it is also included in
+You can set the size of the control icons or the border color with the standard setter too if you like to, yet it is also included in
 the function above.
 
 ```
@@ -106,7 +106,7 @@ That should be it, feel free to contact me concerning bugs or improvements.
 American english can be used too, so calling:
 ```
 fabric.Object.prototype.customizeCornerIcons
-fabric.Canvas.prototype.customiseControls
+fabric.Canvas.prototype.customizeControls
 ```
 
 works too.
