@@ -24,131 +24,152 @@
 
         /**
          * Set a custom corner icon
-         * @param {Object} obj type and icon url.
+         * @param {Object} obj settings and icon url.
          */
 
-        setCustomCorner: function( obj ) {
-            this.useImageIcons = true;
+        customiseCornerIcons: function( obj ) {
             var self = this,
-                corner,
+                setting,
                 icon;
 
-            for ( corner in obj ) {
-                if ( obj.hasOwnProperty( corner ) ) {
-                    switch ( corner  ) {
-                        case 'tl':
-                            icon = new Image();
+            for ( setting in obj ) {
+                if ( obj.hasOwnProperty( setting ) ) {
 
-                            icon.onload = function() {
-                                self.tlIcon = this;
-                            };
+                    if ( obj[ setting ].borderColor !== undefined ) {
+                        this.borderColor = obj[ setting ].borderColor;
+                    }
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                    if ( obj[ setting ].cornerSize !== undefined ) {
+                        this.cornerSize = obj[ setting ].cornerSize;
+                    }
 
-                            icon.src = obj [ corner ];
+                    if ( obj[ setting ].icon !== undefined ) {
+                        this.useImageIcons = true;
 
-                            break;
-                        case 'tr':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.trIcon = this;
-                            };
+                        switch ( setting ) {
+                            case 'tl':
+                                icon = new Image();
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onload = function() {
+                                    self.tlIcon = this;
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'bl':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.blIcon = this;
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.src = obj[ setting ].icon;
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'br':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.brIcon = this;
-                            };
+                                break;
+                            case 'tr':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.trIcon = this;
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'mt':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.mtIcon = this;
-                            };
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'bl':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.blIcon = this;
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'mb':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.mbIcon = this;
-                            };
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'br':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.brIcon = this;
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'mr':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.mrIcon = this;
-                            };
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'mt':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.mtIcon = this;
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'ml':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.mlIcon = this;
-                            };
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'mb':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.mbIcon = this;
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
-                        case 'mtr':
-                            icon = new Image();
-                            icon.onload = function() {
-                                self.mtrIcon = this;
-                            };
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'mr':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.mrIcon = this;
+                                };
 
-                            icon.onerror = function() {
-                                fabric.warn( this.src + 'icon is not an image' );
-                            };
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
 
-                            icon.src = obj [ corner ];
-                            break;
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'ml':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.mlIcon = this;
+                                };
+
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
+
+                                icon.src = obj[ setting ].icon;
+                                break;
+                            case 'mtr':
+                                icon = new Image();
+                                icon.onload = function() {
+                                    self.mtrIcon = this;
+                                };
+
+                                icon.onerror = function() {
+                                    fabric.warn( this.src + ' icon is not an image' );
+                                };
+
+                                icon.src = obj[ setting ].icon;
+                                break;
+                        }
                     }
                 }
             }
+        },
+
+        /**
+         * copy of the setter method for our american friends.
+         * @param {Object} obj containing corner icon urls and settings.
+         */
+
+        customizeCornerIcons: function( obj ) {
+            this.customiseCornerIcons( obj );
         },
 
         /**
@@ -289,50 +310,104 @@
          * @type Boolean
          * @default false
          */
+
         overwriteActions: false,
 
         /**
-         * Set a custom corner action
-         * @param {Object} obj with corner and action.
+         * When true, cursors are fixed
+         * @type Boolean
+         * @default false
          */
 
-        setCustomActions: function( obj ) {
+        fixedCursors: false,
+
+        /**
+         * setter Method for actions and cursors.
+         * @param {Object} obj containing corner action and cursor url/type.
+         */
+
+        customiseControls: function( obj ) {
             var self = this,
-                corner;
-            this.overwriteActions = true;
-            for ( corner in obj ) {
-                if ( obj.hasOwnProperty( corner ) ) {
-                    switch ( corner ) {
-                        case 'tl':
-                            self.tlAction = obj[ corner ];
-                            break;
-                        case 'tr':
-                            self.trAction = obj[ corner ];
-                            break;
-                        case 'bl':
-                            self.blAction = obj[ corner ];
-                            break;
-                        case 'br':
-                            self.brAction = obj[ corner ];
-                            break;
-                        case 'mt':
-                            self.mtAction = obj[ corner ];
-                            break;
-                        case 'mb':
-                            self.mbAction = obj[ corner ];
-                            break;
-                        case 'mr':
-                            self.mrAction = obj[ corner ];
-                            break;
-                        case 'ml':
-                            self.mlAction = obj[ corner ];
-                            break;
-                        case 'mtr':
-                            self.mtrAction = obj[ corner ];
-                            break;
+                setting;
+
+            for ( setting in obj ) {
+                if ( obj.hasOwnProperty( setting ) ) {
+                    if ( obj[ setting ].action !== undefined ) {
+                        this.overwriteActions = true;
+                        switch ( setting ) {
+                            case 'tl':
+                                self.tlAction = obj[ setting ].action;
+                                break;
+                            case 'tr':
+                                self.trAction = obj[ setting ].action;
+                                break;
+                            case 'bl':
+                                self.blAction = obj[ setting ].action;
+                                break;
+                            case 'br':
+                                self.brAction = obj[ setting ].action;
+                                break;
+                            case 'mt':
+                                self.mtAction = obj[ setting ].action;
+                                break;
+                            case 'mb':
+                                self.mbAction = obj[ setting ].action;
+                                break;
+                            case 'mr':
+                                self.mrAction = obj[ setting ].action;
+                                break;
+                            case 'ml':
+                                self.mlAction = obj[ setting ].action;
+                                break;
+                            case 'mtr':
+                                self.mtrAction = obj[ setting ].action;
+                                break;
+                        }
+                    }
+
+                    if ( obj[ setting ].cursor !== undefined ) {
+                        this.fixedCursors = true;
+                        switch ( setting ) {
+                            case 'tl':
+                                this.tlcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'tr':
+                                this.trcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'bl':
+                                this.blcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'br':
+                                this.brcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'mt':
+                                this.mtcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'mb':
+                                this.mbcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'mr':
+                                this.mrcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'ml':
+                                this.mlcursorIcon = obj[ setting ].cursor;
+                                break;
+                            case 'mtr':
+                                this.mtrcursorIcon = obj[ setting ].cursor;
+                                break;
+                        }
                     }
                 }
             }
+        },
+
+        /**
+         * copy of the setter method for our american friends.
+         * @param {Object} obj containing corner action and cursor url/type.
+         */
+
+        customizeControls: function( obj ) {
+            this.customiseControls( obj );
         },
 
         /**
@@ -440,58 +515,6 @@
                 this.discardActiveGroup();
             } else {
                 target.remove();
-            }
-        },
-
-        /**
-         * When true, cursors are fixed
-         * @type Boolean
-         * @default false
-         */
-
-        fixedCursors: false,
-
-        /**
-         * Set a custom corner cursor
-         * @param {Object} obj with corner and cursor url/type.
-         */
-
-        setCustomCornerCursor: function( obj ) {
-            var corner;
-            this.fixedCursors = true;
-
-            for ( corner in obj ) {
-                if ( obj.hasOwnProperty( corner ) ) {
-                    switch ( corner ) {
-                        case 'tl':
-                            this.tlcursorIcon = obj [ corner ];
-                            break;
-                        case 'tr':
-                            this.trcursorIcon = obj [ corner ];
-                            break;
-                        case 'bl':
-                            this.blcursorIcon = obj [ corner ];
-                            break;
-                        case 'br':
-                            this.brcursorIcon = obj [ corner ];
-                            break;
-                        case 'mt':
-                            this.mtcursorIcon = obj [ corner ];
-                            break;
-                        case 'mb':
-                            this.mbcursorIcon = obj [ corner ];
-                            break;
-                        case 'mr':
-                            this.mrcursorIcon = obj [ corner ];
-                            break;
-                        case 'ml':
-                            this.mlcursorIcon = obj [ corner ];
-                            break;
-                        case 'mtr':
-                            this.mtrcursorIcon = obj [ corner ];
-                            break;
-                    }
-                }
             }
         },
 
@@ -654,6 +677,7 @@
         /**
          * @private
          */
+
         _setScalingCursor: function( corner, target ) {
             this.setCursor( this._getRotatedCornerCursor( corner, target ) );
         }

@@ -3,6 +3,8 @@
 module.exports = function( grunt ) {
     'use strict';
 
+    var GITHUB_TOKEN = 1234;
+
     require( 'jit-grunt' )( grunt, {} );
 
     grunt.initConfig( {
@@ -46,8 +48,10 @@ module.exports = function( grunt ) {
         release: {
             options: {
                 github: {
-                    repo: 'pixolith/fabricjs-customise-controls-extension' //put your user/repo here
-
+                    folder: '.',
+                    repo: 'pixolith/fabricjs-customise-controls-extension', //put your user/repo here,
+                    usernameVar: 'GITHUB_USERNAME',
+                    passwordVar: 'GITHUB_TOKEN'
                 },
                 npm: false
             }

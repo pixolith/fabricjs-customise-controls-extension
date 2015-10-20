@@ -2,7 +2,7 @@
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
 # Live Demo Page
-http://www.simonkunz.io/demos/fabric-js-customise-controls/example/index.html
+http://pixolith.github.io/fabricjs-customise-controls-extension/example/index.html
 
 ## What is this?
 This is an extension which overwrites certain functions in the fabric.js core to enable you to customise the controls
@@ -19,19 +19,28 @@ Add customiseControls.js (or its minified version) to your fabric.js project and
 <script defer src="../path-to/customiseControls.js"></script>
 ```
 
-### There are three settings you can enable:
-#### 1.
+### Customising the Controls:
 ```
-fabric.Canvas.prototype.setCustomActions( {
-    tl: 'rotate',
-    tr: 'scale',
-    bl: 'remove'
+fabric.Canvas.prototype.customiseControls( {
+    tl: {
+        action: 'rotate',
+        cursor: 'cow.png'
+    },
+    tr: {
+        action: 'scale'
+    },
+    bl: {
+        action: 'remove',
+        cursor: 'pointer'
+    }
 } );
 ```
 
-This will overwrite the actions handler for adding custom actions.
+This will overwrite the actions and cursor handler for adding custom actions.
 
-tl' meaning the top-left corner will have the action 'rotate'.
+tl' meaning the top-left corner will have the action 'rotate' and the cursor icon url cow.png
+
+#### Actions:
 
 currently the following actions are possible:
 
@@ -42,40 +51,46 @@ currently the following actions are possible:
 * rotate
 * remove (custom)
 
-Default is: 'scale'
+The default action is: 'scale'
 
-#### 2.
 
-```
-fabric.Canvas.prototype.setCustomCornerCursor( {
-    tl: 'cow.png',
-    bl: 'pointer'
-} );
-```
+#### Cursors:
 
-This will overwrite the cursor handler for adding custom cursors.
+currently the native cursors are possible as well as a custom cursor url.
 
-Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a build-in cursor.
+Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a native cursor.
 
 Default is: resize direction cursor
 
-#### 3.
+### Customising the Corner Icons
 
 ```
-fabric.Object.prototype.setCustomCorner( {
-    tl: 'cow.png',
-    tr: 'cow.png',
-    bl: 'cow.png',
-    br: 'cow.png'
+fabric.Object.prototype.customiseCornerIcons( {
+    settings: {
+        borderColor: '#0094dd',
+        cornerSize: 34
+    },
+    tl: {
+        icon: 'cow.png'
+    },
+    tr: {
+        icon: 'cow.png'
+    },
+    bl: {
+        icon: 'cow.png'
+    },
+    br: {
+        icon: 'cow.png'
+    }
 } );
 ```
 
 This will overwrite the controls handler for adding custom icons.
 
-Default: currently not drawing anything but displaying a warning.
+Default: currently not drawing anything but displaying a warning that your image might be corrupt.
 
-You can set size of the control icons with the standard corner size setting. It is also still possible to change the border color
-of the bounding rectangle of the object.
+You can set size of the control icons or the border color with the standard setter too if you like to, yet it is also included in
+the function above.
 
 ```
 fabric.Object.prototype.set( {
@@ -85,6 +100,16 @@ fabric.Object.prototype.set( {
 ```
 
 That should be it, feel free to contact me concerning bugs or improvements.
+
+## Note
+
+American english can be used too, so calling:
+```
+fabric.Object.prototype.customizeCornerIcons
+fabric.Canvas.prototype.customiseControls
+```
+
+works too.
 
 ## Example Implementation
 There is an example implementation in the example folder, just open the index file and check out how the custom handles look like

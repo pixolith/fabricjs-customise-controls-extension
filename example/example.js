@@ -5,27 +5,37 @@
         width = 1000,
         height = 500;
 
-    fabric.Canvas.prototype.setCustomActions( {
-        tl: 'rotate',
-        tr: 'scale',
-        bl: 'remove'
+    fabric.Canvas.prototype.customiseControls( {
+        tl: {
+            action: 'rotate',
+            cursor: 'cow.png'
+        },
+        tr: {
+            action: 'scale'
+        },
+        bl: {
+            action: 'remove',
+            cursor: 'pointer'
+        }
     } );
 
-    fabric.Canvas.prototype.setCustomCornerCursor( {
-        tl: 'cow.png',
-        bl: 'pointer'
-    } );
-
-    fabric.Object.prototype.set( {
-        borderColor: '#0094dd',
-        cornerSize: 34
-    } );
-
-    fabric.Object.prototype.setCustomCorner( {
-        tl: 'cow.png',
-        tr: 'cow.png',
-        bl: 'cow.png',
-        br: 'cow.png'
+    fabric.Object.prototype.customiseCornerIcons( {
+        settings: {
+            borderColor: '#0094dd',
+            cornerSize: 34
+        },
+        tl: {
+            icon: 'cow.png'
+        },
+        tr: {
+            icon: 'cow.png'
+        },
+        bl: {
+            icon: 'cow.png'
+        },
+        br: {
+            icon: 'cow.png'
+        }
     } );
 
     canvas = new fabric.Canvas( 'example', {
