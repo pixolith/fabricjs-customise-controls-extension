@@ -1,11 +1,23 @@
 {
-  "name": "fabric.js color matrix filter extension",
-  "version": "0.0.1",
-  "authors": [
-    "Simon Kunz"
-  ],
-  "license": "MIT",
-  "dependencies": {
-    "fabric": "~1.5.0"
-  }
+    "name": "fabric-customise-controls",
+    "version": "0.0.1",
+    "main": "dist/customiseControls.js",
+    "ignore": [
+        "source",
+        "spec",
+        ".bowerrc",
+        ".gitignore",
+        ".jscsrc",
+        "bower.json",
+        "gruntfile.js",
+        "package.json",
+        "README.md"
+    ],
+    "authors": [
+        "Simon Kunz"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "fabric": "~1.5.0"
+    }
 }
