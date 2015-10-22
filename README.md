@@ -27,7 +27,7 @@ Add customiseControls.js (or its minified version) to your fabric.js project and
 
 ### Customising the Controls:
 ```
-fabric.Canvas.prototype.customiseControls( {
+fabric.Canvas.prototype.customiseControls({
     tl: {
         action: 'rotate',
         cursor: 'cow.png'
@@ -38,13 +38,23 @@ fabric.Canvas.prototype.customiseControls( {
     bl: {
         action: 'remove',
         cursor: 'pointer'
+    },
+    br: {
+        action: 'moveUp',
+        cursor: 'pointer'
+    },
+    mb: {
+        action: 'moveDown',
+        cursor: 'pointer'
     }
-} );
+});
 ```
 
 This will overwrite the actions and cursor handler for adding custom actions.
 
-tl' meaning the top-left corner will have the action 'rotate' and the cursor icon url cow.png
+* tl: object
+
+top-left corner passing an object consisting of corner action (see Actions) and cursor (see Cursors)
 
 #### Actions:
 
@@ -56,6 +66,8 @@ currently the following actions are possible:
 * scaleY
 * rotate
 * remove (custom)
+* moveUp (z-index, custom) since 0.0.3
+* moveDown (z-index, custom) since 0.0.3
 
 The default action is: 'scale'
 
@@ -71,29 +83,90 @@ Default is: resize direction cursor
 ### Customising the Corner Icons
 
 ```
-fabric.Object.prototype.customiseCornerIcons( {
+fabric.Object.prototype.customiseCornerIcons({
     settings: {
-        borderColor: '#0094dd',
-        cornerSize: 34
+        borderColor: 'black',
+        cornerSize: 25,
+        cornerShape: 'rect',
+        cornerBackgroundColor: 'black',
+        cornerPadding: 10
     },
     tl: {
-        icon: 'cow.png'
+        icon: 'icons/rotate.svg'
     },
     tr: {
-        icon: 'cow.png'
+        icon: 'icons/resize.svg'
     },
     bl: {
-        icon: 'cow.png'
+        icon: 'icons/remove.svg'
     },
     br: {
-        icon: 'cow.png'
+        icon: 'icons/up.svg'
+    },
+    mb: {
+        icon: 'icons/down.svg'
     }
-} );
+});
 ```
 
-This will overwrite the controls handler for adding custom icons.
+This will overwrite the controls handler (for all Objects) for adding custom icons and corresponding background-shapes and colors (since 0.0.3).
 
-Default: currently not drawing anything but displaying a warning that your image might be corrupt.
+* cornerSize: int
+
+size in pixels of the corner control box
+
+* cornerShape: string ('rect', 'circle')
+
+shape of the corner control box
+
+* borderColor: string (color)
+
+color of the bounding box border
+
+* cornerBackgroundColor: string (color)
+
+color of the background shape
+
+* cornerPadding: int
+
+inner Padding between icon image and background shape
+
+* tl: object
+
+corner-type passing an object with the desired icon url
+
+
+You can also set these settings Object specific using inheritance of this prototype (since 0.0.3):
+
+```
+yourImageObject.customiseCornerIcons({
+    settings: {
+        borderColor: 'black',
+        cornerSize: 25,
+        cornerShape: 'rect',
+        cornerBackgroundColor: 'black',
+        cornerPadding: 10
+    },
+    tl: {
+        icon: 'icons/rotate.svg'
+    },
+    tr: {
+        icon: 'icons/resize.svg'
+    },
+    bl: {
+        icon: 'icons/remove.svg'
+    },
+    br: {
+        icon: 'icons/up.svg'
+    },
+    mb: {
+        icon: 'icons/down.svg'
+    }
+});
+```
+
+Default: currently not drawing anything but displaying a warning that your image might be corrupt unless cornerShape is set.
+Then it will draw the Shape and display a console warn about the image url.
 
 You can set the size of the control icons or the border color with the standard setter too if you like to, yet it is also included in
 the function above.

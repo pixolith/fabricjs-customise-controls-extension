@@ -1,9 +1,16 @@
 ( function() {
     'use strict';
-    var image = document.createElement( 'img' ),
+    var image1 = document.createElement( 'img' ),
+        image2 = document.createElement( 'img' ),
         canvas,
         width = 1000,
         height = 500;
+
+    fabric.Object.prototype.setControlsVisibility( {
+        mt: false,
+        ml: false,
+        mr: false
+    } );
 
     fabric.Canvas.prototype.customiseControls( {
         tl: {
@@ -16,25 +23,40 @@
         bl: {
             action: 'remove',
             cursor: 'pointer'
+        },
+        br: {
+            action: 'moveUp',
+            cursor: 'pointer'
+        },
+        mb: {
+            action: 'moveDown',
+            cursor: 'pointer'
         }
     } );
 
+    // basic settings
     fabric.Object.prototype.customiseCornerIcons( {
         settings: {
             borderColor: '#0094dd',
-            cornerSize: 34
+            cornerSize: 25,
+            cornerShape: 'rect',
+            cornerBackgroundColor: 'black'
+
         },
         tl: {
-            icon: 'cow.png'
+            icon: 'icons/rotate.svg'
         },
         tr: {
-            icon: 'cow.png'
+            icon: 'icons/resize.svg'
         },
         bl: {
-            icon: 'cow.png'
+            icon: 'icons/remove.svg'
         },
         br: {
-            icon: 'cow.png'
+            icon: 'icons/up.svg'
+        },
+        mb: {
+            icon: 'icons/down.svg'
         }
     } );
 
@@ -44,19 +66,102 @@
         }
     );
 
-    image.src = 'cat.jpg';
-    fabric.Image.fromURL( image.src, function( img ) {
+    image1.src = 'cat.jpg';
+    fabric.Image.fromURL( image1.src, function( img ) {
         img.set( {
-            left: width / 2,
-            top: height / 2,
-            scaleX: 0.5,
-            scaleY: 0.5,
-            originX: 'center',
-            originY: 'center',
+            id: 'cat',
+            left: 500,
+            top: 100,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            originX: 'left',
+            originY: 'top',
             hasRotatingPoint: false
+        } );
+
+        // overwrite the prototype object based
+        img.customiseCornerIcons( {
+            settings: {
+                borderColor: 'black',
+                cornerSize: 25,
+                cornerShape: 'rect',
+                cornerBackgroundColor: 'black',
+                cornerPadding: 10
+            },
+            tl: {
+                icon: 'icons/rotate.svg'
+            },
+            tr: {
+                icon: 'icons/resize.svg'
+            },
+            bl: {
+                icon: 'icons/remove.svg'
+            },
+            br: {
+                icon: 'icons/up.svg'
+            },
+            mb: {
+                icon: 'icons/down.svg'
+            }
         } );
 
         canvas.add( img );
         canvas.setActiveObject( img );
+    } );
+
+    image2.src = 'bear.jpg';
+    fabric.Image.fromURL( image2.src, function( img ) {
+        img.set( {
+            id: 'bear',
+            left: 100,
+            top: 100,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            originX: 'left',
+            originY: 'top',
+            hasRotatingPoint: false
+        } );
+
+        // overwrite the prototype object based
+        img.customiseCornerIcons( {
+            settings: {
+                borderColor: 'black',
+                cornerSize: 25,
+                cornerBackgroundColor: 'black',
+                cornerShape: 'circle',
+                cornerPadding: 10
+            },
+            tl: {
+                icon: 'icons/rotate.svg'
+            },
+            tr: {
+                icon: 'icons/resize.svg'
+            },
+            bl: {
+                icon: 'icons/remove.svg'
+            },
+            br: {
+                icon: 'icons/up.svg'
+            },
+            mb: {
+                icon: 'icons/down.svg'
+            }
+        } );
+
+        canvas.add( img );
+        canvas.setActiveObject( img );
+    } );
+
+    canvas.on( {
+        'after:render': function() {
+            canvas.forEachObject( function( obj ) {
+                if ( obj.id === 'bear' ) {
+                    document.querySelector( '.bear' ).innerText = 'bear z-index: ' + canvas.getObjects().indexOf( obj );
+                } else {
+                    document.querySelector( '.cat' ).innerText = 'cat z-index: ' + canvas.getObjects().indexOf( obj );
+                }
+            } );
+
+        }
     } );
 } )();

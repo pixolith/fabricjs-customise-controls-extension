@@ -20,7 +20,31 @@
          * @default false
          */
 
-        useImageIcons: false,
+        useCustomIcons: false,
+
+        /**
+         * Sets a background-color for drawImage operations with transparency
+         * @type string
+         * @default transparent
+         */
+
+        cornerBackgroundColor: 'transparent',
+
+        /**
+         * Sets the shape of the background for drawImage operations with transparency
+         * @type string
+         * @default rect
+         */
+
+        cornerShape: '',
+
+        /**
+         * Inner Padding between Shape Background and drawn Image
+         * @type int
+         * @default rect
+         */
+
+        cornerPadding: 0,
 
         /**
          * Set a custom corner icon
@@ -35,6 +59,14 @@
             for ( setting in obj ) {
                 if ( obj.hasOwnProperty( setting ) ) {
 
+                    if ( obj[ setting ].cornerShape !== undefined ) {
+                        this.cornerShape = obj[ setting ].cornerShape;
+                    }
+
+                    if ( obj[ setting ].cornerBackgroundColor !== undefined ) {
+                        this.cornerBackgroundColor = obj[ setting ].cornerBackgroundColor;
+                    }
+
                     if ( obj[ setting ].borderColor !== undefined ) {
                         this.borderColor = obj[ setting ].borderColor;
                     }
@@ -43,8 +75,12 @@
                         this.cornerSize = obj[ setting ].cornerSize;
                     }
 
+                    if ( obj[ setting ].cornerPadding !== undefined ) {
+                        this.cornerPadding = obj[ setting ].cornerPadding;
+                    }
+
                     if ( obj[ setting ].icon !== undefined ) {
-                        this.useImageIcons = true;
+                        this.useCustomIcons = true;
 
                         switch ( setting ) {
                             case 'tl':
@@ -195,7 +231,7 @@
                 scaleOffset = this.cornerSize / 2,
                 methodName;
 
-            if ( !this.useImageIcons ) {
+            if ( !this.useCustomIcons ) {
 
                 ctx.lineWidth = 1;
                 ctx.globalAlpha = this.isMoving ? this.borderOpacityWhenMoving : 1;
@@ -281,8 +317,9 @@
             return this;
         },
 
-        /**
+        /** Draw controls either with background-shape and color (transparency) or plain image
          * @private
+         *
          */
 
         _drawControl: function( control, ctx, methodName, left, top, icon ) {
@@ -290,11 +327,54 @@
                 return;
             }
 
-            var size = this.cornerSize;
+            var size = this.cornerSize,
+                cornerBG = this.cornerBackgroundColor,
+                cornerShape = this.cornerShape,
+                cornerPadding = this.cornerPadding;
 
-            if ( this.useImageIcons ) {
-                if ( icon !== undefined ) {
-                    ctx[ methodName ]( icon, left, top, size, size );
+            if ( this.useCustomIcons ) {
+                if ( cornerShape ) {
+                    ctx.globalAlpha = 1;
+                    ctx.fillStyle = cornerBG;
+                    switch ( cornerShape ) {
+                        case 'rect':
+                            ctx.fillRect( left, top, size, size );
+                            if ( icon !== undefined ) {
+                                ctx[ methodName ](
+                                    icon,
+                                    left + cornerPadding / 2,
+                                    top + cornerPadding / 2,
+                                    size - cornerPadding,
+                                    size - cornerPadding
+                                );
+                            }
+                            break;
+                        case 'circle':
+                            ctx.beginPath();
+                            ctx.arc( left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI );
+                            ctx.fill();
+                            ctx.closePath();
+                            if ( icon !== undefined ) {
+                                ctx[ methodName ](
+                                    icon,
+                                    left + cornerPadding / 2,
+                                    top + cornerPadding / 2,
+                                    size - cornerPadding,
+                                    size - cornerPadding
+                                );
+                            }
+                            break;
+                    }
+                } else {
+                    if ( icon !== undefined ) {
+                        ctx[ methodName ](
+                            icon,
+                            left,
+                            top,
+                            size,
+                            size
+                        );
+                    }
                 }
             } else {
                 isVML() || this.transparentCorners || ctx.clearRect( left, top, size, size );
@@ -497,6 +577,14 @@
                 this._removeAction( e, target );
             }
 
+            if ( action === 'moveUp' ) {
+                this._moveLayerUpAction( e, target );
+            }
+
+            if ( action === 'moveDown' ) {
+                this._moveLayerDownAction( e, target );
+            }
+
             this._resetCurrentTransform( e );
         },
 
@@ -508,13 +596,47 @@
          */
 
         _removeAction: function( e, target ) {
-            if ( this.getActiveGroup() && this.getActiveGroup() != 'undefined' ) {
+            if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
                 this.getActiveGroup().forEachObject( function( o ) {
                     o.remove();
                 } );
                 this.discardActiveGroup();
             } else {
                 target.remove();
+            }
+        },
+
+        /**
+         * Custom move up object action
+         * @private
+         * @param {Event} e Event object
+         * @param {fabric.Object} target
+         */
+
+        _moveLayerUpAction: function( e, target ) {
+            if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
+                this.getActiveGroup().forEachObject( function( o ) {
+                    o.bringForward();
+                } );
+            } else {
+                target.bringForward();
+            }
+        },
+
+        /**
+         * Custom move down object action
+         * @private
+         * @param {Event} e Event object
+         * @param {fabric.Object} target
+         */
+
+        _moveLayerDownAction: function( e, target ) {
+            if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
+                this.getActiveGroup().forEachObject( function( o ) {
+                    o.sendBackwards();
+                } );
+            } else {
+                target.sendBackwards();
             }
         },
 
