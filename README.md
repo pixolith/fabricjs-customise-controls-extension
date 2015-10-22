@@ -4,7 +4,7 @@ Implementation of a way of changing the icon / cursor / action of the fabric.js 
 # Install
 
 ```
-bower install fabric-customise-controls
+bower install fabric-customise-controls --save
 ```
 
 # Live Demo Page
@@ -52,7 +52,7 @@ fabric.Canvas.prototype.customiseControls({
 
 This will overwrite the actions and cursor handler for adding custom actions.
 
-* tl: object
+* **tl: object**
 
 top-left corner passing an object consisting of corner action (see Actions) and cursor (see Cursors)
 
@@ -69,7 +69,7 @@ currently the following actions are possible:
 * moveUp (z-index, custom) since 0.0.3
 * moveDown (z-index, custom) since 0.0.3
 
-The default action is: 'scale'
+**Default action is: 'scale'**
 
 
 #### Cursors:
@@ -78,7 +78,7 @@ currently the native cursors are possible as well as a custom cursor url.
 
 Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a native cursor.
 
-Default is: resize direction cursor
+**Default is: resize direction cursor**
 
 ### Customising the Corner Icons
 
@@ -111,32 +111,32 @@ fabric.Object.prototype.customiseCornerIcons({
 
 This will overwrite the controls handler (for all Objects) for adding custom icons and corresponding background-shapes and colors (since 0.0.3).
 
-* cornerSize: int
+* **cornerSize: int**
 
 size in pixels of the corner control box
 
-* cornerShape: string ('rect', 'circle')
+* **cornerShape: string ('rect', 'circle')**
 
 shape of the corner control box
 
-* borderColor: string (color)
+* **borderColor: string (color)**
 
 color of the bounding box border
 
-* cornerBackgroundColor: string (color)
+* **cornerBackgroundColor: string (color)**
 
 color of the background shape
 
-* cornerPadding: int
+* **cornerPadding: int**
 
 inner Padding between icon image and background shape
 
-* tl: object
+* **tl: object**
 
 corner-type passing an object with the desired icon url
 
 
-You can also set these settings Object specific using inheritance of this prototype (since 0.0.3):
+You can also set these settings **Object specific** using inheritance of this prototype (since 0.0.3):
 
 ```
 yourImageObject.customiseCornerIcons({
@@ -165,8 +165,8 @@ yourImageObject.customiseCornerIcons({
 });
 ```
 
-Default: currently not drawing anything but displaying a warning that your image might be corrupt unless cornerShape is set.
-Then it will draw the Shape and display a console warn about the image url.
+**Default is: currently not drawing anything but displaying a warning that your image might be corrupt unless cornerShape is set.
+Then it will draw the Shape and display a console warn about the image url.**
 
 You can set the size of the control icons or the border color with the standard setter too if you like to, yet it is also included in
 the function above.
@@ -187,12 +187,11 @@ American english can be used too, so calling:
 fabric.Object.prototype.customizeCornerIcons
 fabric.Canvas.prototype.customizeControls
 ```
-
 works too.
 
 ## Example Implementation
 There is an example implementation in the example folder, just open the index file and check out how the custom handles look like
-when applied to the test image. The source for that is also provided in the example.js.
+when applied to the test images. The source for that is also provided in the example.js.
 
 ## Usage
 Licensed under the MIT license.
