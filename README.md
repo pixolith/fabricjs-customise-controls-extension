@@ -46,6 +46,11 @@ fabric.Canvas.prototype.customiseControls({
     mb: {
         action: 'moveDown',
         cursor: 'pointer'
+    },
+    mt: {
+        action: {
+            'rotateByDegrees': 45
+        }
     }
 });
 ```
@@ -68,6 +73,7 @@ currently the following actions are possible:
 * remove (custom)
 * moveUp (z-index, custom) since 0.0.3
 * moveDown (z-index, custom) since 0.0.3
+* rotateByDegrees: int (custom) since 0.0.4
 
 **Default action is: 'scale'**
 

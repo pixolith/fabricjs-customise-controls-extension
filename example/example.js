@@ -7,7 +7,6 @@
         height = 500;
 
     fabric.Object.prototype.setControlsVisibility( {
-        mt: false,
         ml: false,
         mr: false
     } );
@@ -31,6 +30,11 @@
         mb: {
             action: 'moveDown',
             cursor: 'pointer'
+        },
+        mt: {
+            action: {
+                'rotateByDegrees': 45
+            }
         }
     } );
 
@@ -41,22 +45,12 @@
             cornerSize: 25,
             cornerShape: 'rect',
             cornerBackgroundColor: 'black'
-
         },
         tl: {
             icon: 'icons/rotate.svg'
         },
         tr: {
             icon: 'icons/resize.svg'
-        },
-        bl: {
-            icon: 'icons/remove.svg'
-        },
-        br: {
-            icon: 'icons/up.svg'
-        },
-        mb: {
-            icon: 'icons/down.svg'
         }
     } );
 
@@ -74,8 +68,8 @@
             top: 100,
             scaleX: 0.2,
             scaleY: 0.2,
-            originX: 'left',
-            originY: 'top',
+            originX: 'center',
+            originY: 'center',
             hasRotatingPoint: false
         } );
 
@@ -102,11 +96,17 @@
             },
             mb: {
                 icon: 'icons/down.svg'
+            },
+            mt: {
+                icon: 'icons/acute.svg'
             }
+        }, function() {
+            canvas.renderAll();
         } );
 
         canvas.add( img );
         canvas.setActiveObject( img );
+
     } );
 
     image2.src = 'bear.jpg';
@@ -117,8 +117,8 @@
             top: 100,
             scaleX: 0.2,
             scaleY: 0.2,
-            originX: 'left',
-            originY: 'top',
+            originX: 'center',
+            originY: 'center',
             hasRotatingPoint: false
         } );
 
@@ -145,12 +145,25 @@
             },
             mb: {
                 icon: 'icons/down.svg'
+            },
+            mt: {
+                icon: 'icons/acute.svg'
             }
+        }, function() {
+            canvas.renderAll();
         } );
 
         canvas.add( img );
-        canvas.setActiveObject( img );
     } );
+
+    //fabric.loadSVGFromURL( 'http://fabricjs.com/assets/15.svg', function( ob, op ) {
+    //    canvas.add( new fabric.PathGroup( ob, op ).set( {
+    //        left: 100,
+    //        top: 100,
+    //        originX: 'center',
+    //        originY: 'center'
+    //    } ).scale( 0.4 ) );
+    //} );
 
     canvas.on( {
         'after:render': function() {
