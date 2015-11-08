@@ -73,7 +73,7 @@ currently the following actions are possible:
 * remove (custom)
 * moveUp (z-index, custom) since 0.0.3
 * moveDown (z-index, custom) since 0.0.3
-* rotateByDegrees: int (custom) since 0.0.4
+* rotateByDegrees: int (custom) since 0.0.4 (pls note that the objects originX and originY need to be set to center)
 
 **Default action is: 'scale'**
 
@@ -145,7 +145,7 @@ corner-type passing an object with the desired icon url
 You can also set these settings **Object specific** using inheritance of this prototype (since 0.0.3):
 
 ```
-yourImageObject.customiseCornerIcons({
+yourFabricObject.customiseCornerIcons({
     settings: {
         borderColor: 'black',
         cornerSize: 25,
