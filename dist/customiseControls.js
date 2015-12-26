@@ -12,7 +12,16 @@
             return typeof G_vmlCanvasManager !== 'undefined';
         },
         degreesToRadians = fabric.util.degreesToRadians,
-        cursorOffset = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
+        var cursorOffset = {
+            mt: 0, // n
+            tr: 1, // ne
+            mr: 2, // e
+            br: 3, // se
+            mb: 4, // s
+            bl: 5, // sw
+            ml: 6, // w
+            tl: 7 // nw
+          };
 
     fabric.util.object.extend( fabric.Object.prototype, {
 
