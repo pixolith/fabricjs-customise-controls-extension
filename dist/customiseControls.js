@@ -605,142 +605,20 @@
                     return false;
                 }
             } else {
-                switch ( corner ) {
-                    case 'tl':
-                        if ( !this.tlcursorIcon ) {
-                            this._setScalingCursor( corner, target );
+                if ( corner in cursorOffset ) {
+                    if ( !this[corner + 'cursorIcon'] ) {
+                        this._setScalingCursor( corner, target );
+                    } else {
+                        if ( iconUrlPattern.test( this[corner + 'cursorIcon'] ) ) {
+                            this.setCursor( 'url(' + this[corner + 'cursorIcon'] + '), auto' );
                         } else {
-                            if ( iconUrlPattern.test( this.tlcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.tlcursorIcon + '), auto' );
+                            if ( this[corner + 'cursorIcon'] === 'resize' ) {
+                                this._setScalingCursor( corner, target );
                             } else {
-                                if ( this.tlcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.tlcursorIcon );
-                                }
+                                this.setCursor( this[corner + 'cursorIcon'] );
                             }
                         }
-                        break;
-                    case 'tr':
-                        if ( !this.trcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.trcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.trcursorIcon + '), auto' );
-                            } else {
-                                if ( this.trcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.trcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'bl':
-                        if ( !this.blcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.blcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.blcursorIcon + '), auto' );
-                            } else {
-                                if ( this.blcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.blcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'br':
-                        if ( !this.brcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.brcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.brcursorIcon + '), auto' );
-                            } else {
-                                if ( this.brcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.brcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'mt':
-                        if ( !this.mtcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.mtcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.mtcursorIcon + '), auto' );
-                            } else {
-                                if ( this.mtcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.mtcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'mb':
-                        if ( !this.mbcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.mbcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.mbcursorIcon + '), auto' );
-                            } else {
-                                if ( this.mbcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.mbcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'mr':
-                        if ( !this.mrcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.mrcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.mrcursorIcon + '), auto' );
-                            } else {
-                                if ( this.mrcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.mrcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'ml':
-                        if ( !this.mlcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.mlcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.mlcursorIcon + '), auto' );
-                            } else {
-                                if ( this.mlcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.mlcursorIcon );
-                                }
-                            }
-                        }
-                        break;
-                    case 'mtr':
-                        if ( !this.mtrcursorIcon ) {
-                            this._setScalingCursor( corner, target );
-                        } else {
-                            if ( iconUrlPattern.test( this.mtrcursorIcon ) ) {
-                                this.setCursor( 'url(' + this.mtrcursorIcon + '), auto' );
-                            } else {
-                                if ( this.mtrcursorIcon === 'resize' ) {
-                                    this._setScalingCursor( corner, target );
-                                } else {
-                                    this.setCursor( this.mtrcursorIcon );
-                                }
-                            }
-                        }
-                        break;
+                    }
                 }
             }
         },
@@ -748,7 +626,6 @@
         /**
          * @private
          */
-
         _setScalingCursor: function( corner, target ) {
             this.setCursor( this._getRotatedCornerCursor( corner, target ) );
         }
