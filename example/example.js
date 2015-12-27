@@ -34,7 +34,8 @@
         mt: {
             action: {
                 'rotateByDegrees': 45
-            }
+            },
+            cursor: 'cow.png'
         }
     } );
 

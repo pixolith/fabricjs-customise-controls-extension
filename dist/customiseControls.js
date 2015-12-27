@@ -12,7 +12,7 @@
             return typeof G_vmlCanvasManager !== 'undefined';
         },
         degreesToRadians = fabric.util.degreesToRadians,
-        var cursorOffset = {
+        cursorOffset = {
             mt: 0, // n
             tr: 1, // ne
             mr: 2, // e
