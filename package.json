@@ -1,5 +1,5 @@
 {
-  "name": "fabric.js",
+  "name": "fabric-customise-controls",
   "version": "0.0.7",
   "devDependencies": {
     "grunt": "^0.4.5",
