@@ -21,7 +21,7 @@
             bl: 5, // sw
             ml: 6, // w
             tl: 7 // nw
-        };
+          };
 
     fabric.util.object.extend( fabric.Object.prototype, {
 
@@ -245,9 +245,9 @@
             return this;
         },
 
-        /** Draw controls either with background-shape and color (transparency) or plain image (modified core method)
+        /** Draw controls either with background-shape and color (transparency) or plain image
          * @private
-         * {string} icon url of the control
+         *
          */
 
         _drawControl: function( control, ctx, methodName, left, top, icon ) {
@@ -427,32 +427,39 @@
          * @param {fabric.Object} target
          */
         _setupCurrentTransform: function( e, target ) {
-            if ( !target ) {
+            if (!target) {
                 return;
             }
 
-            var pointer = this.getPointer( e ),
-                corner = target._findTargetCorner( this.getPointer( e, true ) ),
-                action = this._getActionFromCorner( target, corner ),
-                origin = this._getOriginFromCorner( target, corner );
+            var pointer = this.getPointer(e),
+              corner = target._findTargetCorner(this.getPointer(e, true)),
+              action = this._getActionFromCorner(target, corner, e),
+              origin = this._getOriginFromCorner(target, corner);
 
             this._currentTransform = {
                 target: target,
                 action: action,
+                corner: corner,
                 scaleX: target.scaleX,
                 scaleY: target.scaleY,
+                skewX: target.skewX,
+                skewY: target.skewY,
                 offsetX: pointer.x - target.left,
                 offsetY: pointer.y - target.top,
                 originX: origin.x,
                 originY: origin.y,
                 ex: pointer.x,
                 ey: pointer.y,
+                lastX: pointer.x,
+                lastY: pointer.y,
                 left: target.left,
                 top: target.top,
-                theta: degreesToRadians( target.angle ),
+                theta: degreesToRadians(target.angle),
                 width: target.width * target.scaleX,
                 mouseXSign: 1,
-                mouseYSign: 1
+                mouseYSign: 1,
+                shiftKey: e.shiftKey,
+                altKey: e.altKey
             };
 
             this._currentTransform.original = {
@@ -460,6 +467,8 @@
                 top: target.top,
                 scaleX: target.scaleX,
                 scaleY: target.scaleY,
+                skewX: target.skewX,
+                skewY: target.skewY,
                 originX: origin.x,
                 originY: origin.y
             };
@@ -482,7 +491,7 @@
                 }
             }
 
-            this._resetCurrentTransform( e );
+            this._resetCurrentTransform();
         },
 
         /**
@@ -546,30 +555,16 @@
          */
 
         _rotateByDegrees: function( e, target, value ) {
-            var angle = target.getAngle() + value,
-                needsOriginRestore = false;
+            var angle = target.getAngle() + value;
 
-            if ( ( target.originX !== 'center' || target.originY !== 'center' ) && target.centeredRotation ) {
-                this._setOriginToCenter( target );
-                needsOriginRestore = true;
-            }
-
-            angle = angle > 360 ? angle - 360 : angle;
+            angle = angle > 360 ? value : angle < 0 ? 315 : angle;
 
             if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
-                this.getActiveGroup().forEachObject( function( obj ) {
-                    obj
-                        .setAngle( angle )
-                        .setCoords();
+                this.getActiveGroup().forEachObject( function( o ) {
+                    o.setAngle( angle ).setCoords();
                 } );
             } else {
-                target
-                    .setAngle( angle )
-                    .setCoords();
-            }
-
-            if ( needsOriginRestore ) {
-                this._setCenterToOrigin( target );
+                target.setAngle( angle ).setCoords();
             }
 
             this.renderAll();
@@ -579,49 +574,69 @@
             target._originalOriginX = target.originX;
             target._originalOriginY = target.originY;
 
+            var center = target.getCenterPoint();
+
             target.set( {
                 originX: 'center',
-                originY: 'center'
+                originY: 'center',
+                left: center.x,
+                top: center.y
             } );
         },
 
         _setCenterToOrigin: function( target ) {
+            var originPoint = target.translateToOriginPoint(
+                target.getCenterPoint(),
+                target._originalOriginX,
+                target._originalOriginY );
+
             target.set( {
                 originX: target._originalOriginX,
-                originY: target._originalOriginY
+                originY: target._originalOriginY,
+                left: originPoint.x,
+                top: originPoint.y
             } );
         },
 
         /**
-         * Sets either the standard behaviour cursors or if fixedCursors is true, tries to set a custom cursor
-         * either by using an icon or a build-in cursor. Cursor icon extensions are matched with a regular expression.
          * @private
-         * {string} corner name
-         * {target} event handler of the hovered corner
          */
-        _setCornerCursor: function( corner, target ) {
+        _setCornerCursor: function( corner, target, e ) {
             var iconUrlPattern = /\.(?:jpe?g|png|gif|jpg|jpeg|svg)$/;
 
-            if ( this.fixedCursors && this[ corner + 'cursorIcon' ] ) {
-                if ( iconUrlPattern.test( this[ corner + 'cursorIcon' ] ) ) {
-                    this.setCursor( 'url(' + this[ corner + 'cursorIcon' ] + '), auto' );
-                } else {
-                    if ( this[ corner + 'cursorIcon' ] === 'resize' ) {
-                        this.setCursor( this._getRotatedCornerCursor( corner, target ) );
-                    } else {
-                        this.setCursor( this[ corner + 'cursorIcon' ] );
-                    }
-                }
-            } else {
+            if ( !this.fixedCursors ) {
                 if ( corner in cursorOffset ) {
-                    this.setCursor( this._getRotatedCornerCursor( corner, target ) );
+                    this.setCursor( this._getRotatedCornerCursor( corner, target, e ) );
                 } else if ( corner === 'mtr' && target.hasRotatingPoint ) {
                     this.setCursor( this.rotationCursor );
                 } else {
                     this.setCursor( this.defaultCursor );
                     return false;
                 }
+            } else {
+                if ( corner in cursorOffset ) {
+                    if ( !this[corner + 'cursorIcon'] ) {
+                        this._setScalingCursor( corner, target );
+                    } else {
+                        if ( iconUrlPattern.test( this[corner + 'cursorIcon'] ) ) {
+                            this.setCursor( 'url(' + this[corner + 'cursorIcon'] + '), auto' );
+                        } else {
+                            if ( this[corner + 'cursorIcon'] === 'resize' ) {
+                                this._setScalingCursor( corner, target );
+                            } else {
+                                this.setCursor( this[corner + 'cursorIcon'] );
+                            }
+                        }
+                    }
+                }
             }
+        },
+
+        /**
+         * @private
+         */
+        _setScalingCursor: function( corner, target ) {
+            this.setCursor( this._getRotatedCornerCursor( corner, target ) );
         }
     } );
 
