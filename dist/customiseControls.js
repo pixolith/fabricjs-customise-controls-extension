@@ -602,7 +602,17 @@
         _setCornerCursor: function( corner, target ) {
             var iconUrlPattern = /\.(?:jpe?g|png|gif|jpg|jpeg|svg)$/;
 
-            if ( !this.fixedCursors ) {
+            if ( this.fixedCursors && this[ corner + 'cursorIcon' ] ) {
+                if ( iconUrlPattern.test( this[ corner + 'cursorIcon' ] ) ) {
+                    this.setCursor( 'url(' + this[ corner + 'cursorIcon' ] + '), auto' );
+                } else {
+                    if ( this[ corner + 'cursorIcon' ] === 'resize' ) {
+                        this.setCursor( this._getRotatedCornerCursor( corner, target ) );
+                    } else {
+                        this.setCursor( this[ corner + 'cursorIcon' ] );
+                    }
+                }
+            } else {
                 if ( corner in cursorOffset ) {
                     this.setCursor( this._getRotatedCornerCursor( corner, target ) );
                 } else if ( corner === 'mtr' && target.hasRotatingPoint ) {
@@ -610,27 +620,6 @@
                 } else {
                     this.setCursor( this.defaultCursor );
                     return false;
-                }
-            } else {
-                if ( !this[ corner + 'cursorIcon' ] ) {
-                    if ( corner in cursorOffset ) {
-                        this.setCursor( this._getRotatedCornerCursor( corner, target ) );
-                    } else if ( corner === 'mtr' && target.hasRotatingPoint ) {
-                        this.setCursor( this.rotationCursor );
-                    } else {
-                        this.setCursor( this.defaultCursor );
-                        return false;
-                    }
-                } else {
-                    if ( iconUrlPattern.test( this[ corner + 'cursorIcon' ] ) ) {
-                        this.setCursor( 'url(' + this[ corner + 'cursorIcon' ] + '), auto' );
-                    } else {
-                        if ( this[ corner + 'cursorIcon' ] === 'resize' ) {
-                            this.setCursor( this._getRotatedCornerCursor( corner, target ) );
-                        } else {
-                            this.setCursor( this[ corner + 'cursorIcon' ] );
-                        }
-                    }
                 }
             }
         }
