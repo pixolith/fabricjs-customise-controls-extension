@@ -21,7 +21,7 @@
             bl: 5, // sw
             ml: 6, // w
             tl: 7 // nw
-          };
+        };
 
     fabric.util.object.extend( fabric.Object.prototype, {
 
@@ -245,9 +245,9 @@
             return this;
         },
 
-        /** Draw controls either with background-shape and color (transparency) or plain image
+        /** Draw controls either with background-shape and color (transparency) or plain image (modified core method)
          * @private
-         *
+         * {string} icon url of the control
          */
 
         _drawControl: function( control, ctx, methodName, left, top, icon ) {
@@ -546,16 +546,30 @@
          */
 
         _rotateByDegrees: function( e, target, value ) {
-            var angle = target.getAngle() + value;
+            var angle = target.getAngle() + value,
+                needsOriginRestore = false;
 
-            angle = angle > 360 ? value : angle < 0 ? 315 : angle;
+            if ( ( target.originX !== 'center' || target.originY !== 'center' ) && target.centeredRotation ) {
+                this._setOriginToCenter( target );
+                needsOriginRestore = true;
+            }
+
+            angle = angle > 360 ? angle - 360 : angle;
 
             if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
-                this.getActiveGroup().forEachObject( function( o ) {
-                    o.setAngle( angle ).setCoords();
+                this.getActiveGroup().forEachObject( function( obj ) {
+                    obj
+                        .setAngle( angle )
+                        .setCoords();
                 } );
             } else {
-                target.setAngle( angle ).setCoords();
+                target
+                    .setAngle( angle )
+                    .setCoords();
+            }
+
+            if ( needsOriginRestore ) {
+                this._setCenterToOrigin( target );
             }
 
             this.renderAll();
@@ -565,32 +579,25 @@
             target._originalOriginX = target.originX;
             target._originalOriginY = target.originY;
 
-            var center = target.getCenterPoint();
-
             target.set( {
                 originX: 'center',
-                originY: 'center',
-                left: center.x,
-                top: center.y
+                originY: 'center'
             } );
         },
 
         _setCenterToOrigin: function( target ) {
-            var originPoint = target.translateToOriginPoint(
-                target.getCenterPoint(),
-                target._originalOriginX,
-                target._originalOriginY );
-
             target.set( {
                 originX: target._originalOriginX,
-                originY: target._originalOriginY,
-                left: originPoint.x,
-                top: originPoint.y
+                originY: target._originalOriginY
             } );
         },
 
         /**
+         * Sets either the standard behaviour cursors or if fixedCursors is true, tries to set a custom cursor
+         * either by using an icon or a build-in cursor. Cursor icon extensions are matched with a regular expression.
          * @private
+         * {string} corner name
+         * {target} event handler of the hovered corner
          */
         _setCornerCursor: function( corner, target ) {
             var iconUrlPattern = /\.(?:jpe?g|png|gif|jpg|jpeg|svg)$/;
@@ -605,29 +612,27 @@
                     return false;
                 }
             } else {
-                if ( corner in cursorOffset ) {
-                    if ( !this[corner + 'cursorIcon'] ) {
-                        this._setScalingCursor( corner, target );
+                if ( !this[ corner + 'cursorIcon' ] ) {
+                    if ( corner in cursorOffset ) {
+                        this.setCursor( this._getRotatedCornerCursor( corner, target ) );
+                    } else if ( corner === 'mtr' && target.hasRotatingPoint ) {
+                        this.setCursor( this.rotationCursor );
                     } else {
-                        if ( iconUrlPattern.test( this[corner + 'cursorIcon'] ) ) {
-                            this.setCursor( 'url(' + this[corner + 'cursorIcon'] + '), auto' );
+                        this.setCursor( this.defaultCursor );
+                        return false;
+                    }
+                } else {
+                    if ( iconUrlPattern.test( this[ corner + 'cursorIcon' ] ) ) {
+                        this.setCursor( 'url(' + this[ corner + 'cursorIcon' ] + '), auto' );
+                    } else {
+                        if ( this[ corner + 'cursorIcon' ] === 'resize' ) {
+                            this.setCursor( this._getRotatedCornerCursor( corner, target ) );
                         } else {
-                            if ( this[corner + 'cursorIcon'] === 'resize' ) {
-                                this._setScalingCursor( corner, target );
-                            } else {
-                                this.setCursor( this[corner + 'cursorIcon'] );
-                            }
+                            this.setCursor( this[ corner + 'cursorIcon' ] );
                         }
                     }
                 }
             }
-        },
-
-        /**
-         * @private
-         */
-        _setScalingCursor: function( corner, target ) {
-            this.setCursor( this._getRotatedCornerCursor( corner, target ) );
         }
     } );
 

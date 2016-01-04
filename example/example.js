@@ -33,9 +33,9 @@
         },
         mt: {
             action: {
-                'rotateByDegrees': 45
+                'rotateByDegrees': 30
             },
-            cursor: 'cow.png'
+            cursor: 'pointer'
         }
     } );
 
@@ -126,9 +126,9 @@
         // overwrite the prototype object based
         img.customiseCornerIcons( {
             settings: {
-                borderColor: 'black',
+                borderColor: 'red',
                 cornerSize: 25,
-                cornerBackgroundColor: 'black',
+                cornerBackgroundColor: 'red',
                 cornerShape: 'circle',
                 cornerPadding: 10
             },
@@ -169,11 +169,8 @@
     canvas.on( {
         'after:render': function() {
             canvas.forEachObject( function( obj ) {
-                if ( obj.id === 'bear' ) {
-                    document.querySelector( '.bear' ).innerText = 'bear z-index: ' + canvas.getObjects().indexOf( obj );
-                } else {
-                    document.querySelector( '.cat' ).innerText = 'cat z-index: ' + canvas.getObjects().indexOf( obj );
-                }
+                document.querySelector( '.' + obj.id )
+                    .innerText = obj.id + ' z-index: ' + canvas.getObjects().indexOf( obj );
             } );
 
         }

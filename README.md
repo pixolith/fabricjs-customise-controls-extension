@@ -73,7 +73,7 @@ currently the following actions are possible:
 * remove (custom)
 * moveUp (z-index, custom) since 0.0.3
 * moveDown (z-index, custom) since 0.0.3
-* rotateByDegrees: int (custom) since 0.0.4 (pls note that the objects originX and originY need to be set to center)
+* rotateByDegrees: int (custom) since 0.0.4 (origin can now be set to anything)
 
 **Default action is: 'scale'**
 
