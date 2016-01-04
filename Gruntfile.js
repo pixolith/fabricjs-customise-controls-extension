@@ -1,7 +1,7 @@
 /*global module: false, require: false */
+'use strict';
 
 module.exports = function( grunt ) {
-    'use strict';
 
     require( 'jit-grunt' )( grunt, {} );
 
