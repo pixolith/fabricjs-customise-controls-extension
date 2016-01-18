@@ -1,13 +1,13 @@
 /*
  * fabric.js Controls Extension
- *
+ * for fabric.js stable build 1.5.0
  * Simon Kunz 18.10.2015 for pixolith
  * Licensed under the MIT license.
  */
 ( function( global ) {
-
     'use strict';
     var fabric = global.fabric || ( global.fabric = {} ),
+        extCompat = '1.5.0',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
         },
@@ -22,6 +22,13 @@
             ml: 6, // w
             tl: 7 // nw
         };
+
+    if ( global.fabric.version !== extCompat ) {
+        console.warn( 'this extension might not be fully compatible with your version ' +
+            'of fabric.js (' + global.fabric.version + ').' +
+            'Consider using the latest compatible build of fabric.js' + extCompat
+        );
+    }
 
     fabric.util.object.extend( fabric.Object.prototype, {
 
