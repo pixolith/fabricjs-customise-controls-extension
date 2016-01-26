@@ -57,9 +57,12 @@ fabric.Canvas.prototype.customiseControls({
 
 This will overwrite the actions and cursor handler for adding custom actions.
 
-* **tl: object**
+```
+tl: object
+```
 
-top-left corner passing an object consisting of corner action (see Actions) and cursor (see Cursors)
+tl (top-left) corner passing an object consisting of corner ```action``` (see Actions) and ```cursor``` (see Cursors).
+An Exception is the new ```rotateByDegrees``` action which also takes the amount of degrees you want to rotate as an integer.
 
 #### Actions:
 
@@ -77,14 +80,13 @@ currently the following actions are possible:
 
 **Default action is: 'scale'**
 
-
 #### Cursors:
 
 currently the native cursors are possible as well as a custom cursor url.
 
 Depending on what you set the javascript will detect if you have set an image which needs to be loaded or a native cursor.
 
-**Default is: resize direction cursor**
+**Default is: resize direction cursor (e.g north-west arrow cursor)**
 
 ### Customising the Corner Icons
 
@@ -117,30 +119,36 @@ fabric.Object.prototype.customiseCornerIcons({
 
 This will overwrite the controls handler (for all Objects) for adding custom icons and corresponding background-shapes and colors (since 0.0.3).
 
-* **cornerSize: int**
+```cornerSize: int```
 
 size in pixels of the corner control box
 
-* **cornerShape: string ('rect', 'circle')**
+```cornerShape: string```
 
-shape of the corner control box
+shape of the corner control box. Currently supports ```rect``` and ```circle```
 
-* **borderColor: string (color)**
+```borderColor: string```
 
-color of the bounding box border
+the color of the bounding box border
+Takes any Color String as String/Hex/RGB e.G: ```black```
 
-* **cornerBackgroundColor: string (color)**
+```cornerBackgroundColor: string```
 
-color of the background shape
+the color of the background shape
+Takes any Color String as String/Hex/RGB e.G: ```black```
 
-* **cornerPadding: int**
+```cornerPadding: int```
 
-inner Padding between icon image and background shape
+the inner Padding between icon image and background shape.
+Takes any pixel integer.
 
-* **tl: object**
+```tl: object```
 
-corner-type passing an object with the desired icon url
+corner-type passing an object with the desired ```icon``` url
 
+You don't have to chose a combination of icon and background-color, it is also possible to use a fully styled icon image with the background included
+as an icon. The Background-color is simply meant to support transparent layered icons, so they can be placed inside a coloured control box.
+The default Background-color is transparent.
 
 You can also set these settings **Object specific** using inheritance of this prototype (since 0.0.3):
 
