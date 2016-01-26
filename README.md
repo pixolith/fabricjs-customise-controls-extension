@@ -1,5 +1,5 @@
 # Customise the controls of fabric.js
-Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
+Change the icon / cursor / action of the fabric.js corner controls.
 
 # Install
 
@@ -7,7 +7,7 @@ Implementation of a way of changing the icon / cursor / action of the fabric.js 
 bower install fabric-customise-controls --save
 ```
 
-# Live Demo Page
+# Demo
 http://pixolith.github.io/fabricjs-customise-controls-extension/example/index.html
 
 ## What is this?
@@ -119,34 +119,49 @@ fabric.Object.prototype.customiseCornerIcons({
 
 This will overwrite the controls handler (for all Objects) for adding custom icons and corresponding background-shapes and colors (since 0.0.3).
 
+#### Settings:
+
 ```cornerSize: int```
 
 size in pixels of the corner control box
 
-```cornerShape: string```
+Default in fabric.js: 12
+* * *
+```cornerShape: 'string'```
 
-shape of the corner control box. Currently supports ```rect``` and ```circle```
+shape of the corner control box. Currently supports ```'rect'``` and ```'circle'```
 
-```borderColor: string```
+Default: No Shape will be drawn
+* * *
+```borderColor: 'string'```
 
 the color of the bounding box border
-Takes any Color String as String/Hex/RGB e.G: ```black```
 
-```cornerBackgroundColor: string```
+Takes any Color String as String/Hex/RGB e.G: ```'black'```
+
+Default in fabric.js: 'rgba(102,153,255,0.75)'
+* * *
+```cornerBackgroundColor: 'string'```
 
 the color of the background shape
-Takes any Color String as String/Hex/RGB e.G: ```black```
+Takes any Color String as String/Hex/RGB e.G: ```'black'```
 
+Default: 'transparent'
+* * *
 ```cornerPadding: int```
 
 the inner Padding between icon image and background shape.
+
 Takes any pixel integer.
 
+Default: 0
+* * *
 ```tl: object```
 
 corner-type passing an object with the desired ```icon``` url
+* * *
 
-You don't have to chose a combination of icon and background-color, it is also possible to use a fully styled icon image with the background included
+**Important:** You don't have to chose a combination of icon and background-color, it is also possible to use a fully styled icon image with the background included
 as an icon. The Background-color is simply meant to support transparent layered icons, so they can be placed inside a coloured control box.
 The default Background-color is transparent.
 
