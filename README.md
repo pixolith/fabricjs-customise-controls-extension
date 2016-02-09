@@ -2,7 +2,7 @@
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
 # This is a working draft of the extension for the current fabric.js master
-```https://github.com/kangax/fabric.js```
+https://github.com/kangax/fabric.js
 
 # Live Demo Page
 http://pixolith.github.io/fabricjs-customise-controls-extension/example/index.html
