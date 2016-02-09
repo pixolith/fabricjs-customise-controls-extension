@@ -6,10 +6,10 @@
         width = 1000,
         height = 500;
 
-    fabric.Object.prototype.setControlsVisibility( {
-        ml: false,
-        mr: false
-    } );
+    //fabric.Object.prototype.setControlsVisibility( {
+    //    ml: false,
+    //    mr: false
+    //} );
 
     fabric.Canvas.prototype.customiseControls( {
         tl: {

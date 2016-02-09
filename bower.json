@@ -18,6 +18,6 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "fabric": "~1.5.0"
+        "fabric": "master"
     }
 }

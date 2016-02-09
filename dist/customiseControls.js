@@ -1,13 +1,13 @@
 /*
  * fabric.js Controls Extension
- * for fabric.js stable build 1.5.0
- * Simon Kunz 18.10.2015 for pixolith
+ * for fabric.js current build
+ * Simon Kunz 09.02.2016 for pixolith
  * Licensed under the MIT license.
  */
 ( function( global ) {
     'use strict';
     var fabric = global.fabric || ( global.fabric = {} ),
-        extCompat = '1.5.0',
+        extCompat = '1.6.0-rc.1',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
         },
@@ -161,9 +161,9 @@
             var wh = this._calculateCurrentDimensions( true ),
                 width = wh.x,
                 height = wh.y,
-                left = -( width / 2 ),
-                top = -( height / 2 ),
-                scaleOffset = this.cornerSize / 2,
+                scaleOffset = this.cornerSize,
+                left = -( width + scaleOffset ) / 2,
+                top = -( height + scaleOffset ) / 2,
                 methodName;
 
             if ( !this.useCustomIcons ) {
@@ -181,29 +181,29 @@
 
             // top-left
             this._drawControl( 'tl', ctx, methodName,
-                left - scaleOffset,
-                top - scaleOffset,
+                left,
+                top,
                 this.tlIcon
             );
 
             // top-right
             this._drawControl( 'tr', ctx, methodName,
-                left + width - scaleOffset,
-                top - scaleOffset,
+                left + width,
+                top,
                 this.trIcon
             );
 
             // bottom-left
             this._drawControl( 'bl', ctx, methodName,
-                left - scaleOffset,
-                top + height - scaleOffset,
+                left,
+                top + height,
                 this.blIcon
             );
 
             // bottom-right
             this._drawControl( 'br', ctx, methodName,
-                left + width - scaleOffset,
-                top + height - scaleOffset,
+                left + width,
+                top + height,
                 this.brIcon
             );
 
@@ -211,29 +211,29 @@
 
                 // middle-top
                 this._drawControl( 'mt', ctx, methodName,
-                    left + width / 2 - scaleOffset,
-                    top - scaleOffset,
+                    left + width / 2,
+                    top,
                     this.mtIcon
                 );
 
                 // middle-bottom
                 this._drawControl( 'mb', ctx, methodName,
-                    left + width / 2 - scaleOffset,
-                    top + height - scaleOffset,
+                    left + width / 2,
+                    top + height,
                     this.mbIcon
                 );
 
                 // middle-right
                 this._drawControl( 'mr', ctx, methodName,
-                    left + width - scaleOffset,
-                    top + height / 2 - scaleOffset,
+                    left + width,
+                    top + height / 2,
                     this.mrIcon
                 );
 
                 // middle-left
                 this._drawControl( 'ml', ctx, methodName,
-                    left - scaleOffset,
-                    top + height / 2 - scaleOffset,
+                    left,
+                    top + height / 2,
                     this.mlIcon
                 );
             }
@@ -241,8 +241,8 @@
             // middle-top-rotate
             if ( this.hasRotatingPoint ) {
                 this._drawControl( 'mtr', ctx, methodName,
-                    left + width / 2 - scaleOffset,
-                    top - this.rotatingPointOffset - scaleOffset,
+                    left + width / 2,
+                    top - this.rotatingPointOffset,
                     this.mtrIcon
                 );
             }
@@ -392,39 +392,45 @@
          * @private
          */
 
-        _getActionFromCorner: function( target, corner ) {
-            var action = 'drag';
+        _getActionFromCorner: function( target, corner, e ) {
+            if ( !corner ) {
+                return 'drag';
+            }
+
             if ( corner ) {
-                if ( !this.overwriteActions ) {
-                    action = ( corner === 'ml' || corner === 'mr' ) ?
-                        'scaleX'
-                        : ( corner === 'mt' || corner === 'mb' ) ?
-                        'scaleY'
-                        : corner === 'mtr' ?
-                        'rotate'
-                        : 'scale';
+                if ( this[ corner + 'Action' ] && this.overwriteActions ) {
+                    switch ( corner ) {
+                        case 'mtr':
+                            return this[ corner + 'Action' ] || 'rotate';
+                        case 'ml':
+                        case 'mr':
+                            if ( e.shiftKey ) {
+                                return e.shiftKey ? 'skewY' : 'scaleX';
+                            }
+                            return this[ corner + 'Action' ];
+                        case 'mt':
+                        case 'mb':
+                            if ( e.shiftKey ) {
+                                return e.shiftKey ? 'skewY' : 'scaleY';
+                            }
+                            return this[ corner + 'Action' ];
+                        default:
+                            return this[ corner + 'Action' ] || 'scale';
+                    }
                 } else {
-                    action = corner === 'ml' ?
-                    this.mlAction || 'scaleX'
-                        : corner === 'mr' ?
-                    this.mrAction || 'scaleX'
-                        : corner === 'mt' ?
-                    this.mtAction || 'scaleY'
-                        : corner === 'mb' ?
-                    this.mbAction || 'scaleY'
-                        : corner === 'tr' ?
-                    this.trAction || 'scale'
-                        : corner === 'tl' ?
-                    this.tlAction || 'scale'
-                        : corner === 'bl' ?
-                    this.blAction || 'scale'
-                        : corner === 'br' ?
-                    this.brAction || 'scale'
-                        : corner === 'mtr' ?
-                    this.mtrAction || 'rotate'
-                        : 'scale';
+                    switch ( corner ) {
+                        case 'mtr':
+                            return 'rotate';
+                        case 'ml':
+                        case 'mr':
+                            return e.shiftKey ? 'skewY' : 'scaleX';
+                        case 'mt':
+                        case 'mb':
+                            return e.shiftKey ? 'skewX' : 'scaleY';
+                        default:
+                            return 'scale';
+                    }
                 }
-                return action;
             }
         },
 
@@ -440,26 +446,33 @@
 
             var pointer = this.getPointer( e ),
                 corner = target._findTargetCorner( this.getPointer( e, true ) ),
-                action = this._getActionFromCorner( target, corner ),
+                action = this._getActionFromCorner( target, corner, e ),
                 origin = this._getOriginFromCorner( target, corner );
 
             this._currentTransform = {
                 target: target,
                 action: action,
+                corner: corner,
                 scaleX: target.scaleX,
                 scaleY: target.scaleY,
+                skewX: target.skewX,
+                skewY: target.skewY,
                 offsetX: pointer.x - target.left,
                 offsetY: pointer.y - target.top,
                 originX: origin.x,
                 originY: origin.y,
                 ex: pointer.x,
                 ey: pointer.y,
+                lastX: pointer.x,
+                lastY: pointer.y,
                 left: target.left,
                 top: target.top,
                 theta: degreesToRadians( target.angle ),
                 width: target.width * target.scaleX,
                 mouseXSign: 1,
-                mouseYSign: 1
+                mouseYSign: 1,
+                shiftKey: e.shiftKey,
+                altKey: e.altKey
             };
 
             this._currentTransform.original = {
@@ -467,6 +480,8 @@
                 top: target.top,
                 scaleX: target.scaleX,
                 scaleY: target.scaleY,
+                skewX: target.skewX,
+                skewY: target.skewY,
                 originX: origin.x,
                 originY: origin.y
             };
@@ -606,7 +621,7 @@
          * {string} corner name
          * {target} event handler of the hovered corner
          */
-        _setCornerCursor: function( corner, target ) {
+        _setCornerCursor: function( corner, target, e ) {
             var iconUrlPattern = /\.(?:jpe?g|png|gif|jpg|jpeg|svg)$/;
 
             if ( this.fixedCursors && this[ corner + 'cursorIcon' ] ) {
@@ -614,14 +629,14 @@
                     this.setCursor( 'url(' + this[ corner + 'cursorIcon' ] + '), auto' );
                 } else {
                     if ( this[ corner + 'cursorIcon' ] === 'resize' ) {
-                        this.setCursor( this._getRotatedCornerCursor( corner, target ) );
+                        this.setCursor( this._getRotatedCornerCursor( corner, target, e ) );
                     } else {
                         this.setCursor( this[ corner + 'cursorIcon' ] );
                     }
                 }
             } else {
                 if ( corner in cursorOffset ) {
-                    this.setCursor( this._getRotatedCornerCursor( corner, target ) );
+                    this.setCursor( this._getRotatedCornerCursor( corner, target, e ) );
                 } else if ( corner === 'mtr' && target.hasRotatingPoint ) {
                     this.setCursor( this.rotationCursor );
                 } else {
