@@ -8,10 +8,12 @@ bower install fabric-customise-controls --save
 ```
 
 # Concerning fabric.js 1.6.x and current master compatibility
-Here is working draft for this extension for the current version of fabric.js:
+This repo is originally targeted at the latest stable version of fabric.js (1.5.0). Still in case you need the
+features that are currently in development in fabric.js you can check out the branch here:
 https://github.com/pixolith/fabricjs-customise-controls-extension/tree/fabric-current-master-compat
 
-I will try maintain this repo as well but since fabric.js is subject to regular updates there is no guarantee that
+It is a working draft for this extension for the current version of fabric.js.
+I will try maintain this as well but since fabric.js is subject to regular updates there is no guarantee that
 it will always work flawlessly. Please report any bugs you find :)
 
 # Demo
