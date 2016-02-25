@@ -1,6 +1,6 @@
 {
-    "name": "fabric-customise-controls",
-    "version": "0.0.8",
+    "name": "fabric-customise-controls-master-compat",
+    "version": "0.0.9",
     "main": "dist/customiseControls.js",
     "ignore": [
         "source",
