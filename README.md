@@ -7,7 +7,7 @@ Change the icon / cursor / action of the fabric.js corner controls.
 bower install fabric-customise-controls --save
 ```
 
-# Concerning fabric.js 1.6.x and current master compatibility
+# Concerning fabric.js 1.6.0-rc and current master compatibility
 This repo is originally targeted at the latest stable version of fabric.js (1.5.0). Still in case you need the
 features that are currently in development in fabric.js you can check out the branch here:
 https://github.com/pixolith/fabricjs-customise-controls-extension/tree/fabric-current-master-compat
