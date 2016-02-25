@@ -568,7 +568,7 @@
          */
 
         _rotateByDegrees: function( e, target, value ) {
-            var angle = target.getAngle() + value,
+            var angle = parseInt(target.getAngle()) + value,
                 needsOriginRestore = false;
 
             if ( ( target.originX !== 'center' || target.originY !== 'center' ) && target.centeredRotation ) {
