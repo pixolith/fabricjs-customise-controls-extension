@@ -7,7 +7,7 @@
 ( function( global ) {
     'use strict';
     var fabric = global.fabric || ( global.fabric = {} ),
-        extCompat = '1.6.0-rc.1',
+        extCompat = '1.6',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
         },
@@ -23,7 +23,7 @@
             tl: 7 // nw
         };
 
-    if ( global.fabric.version !== extCompat ) {
+    if ( global.fabric.version.indexOf( extCompat ) ) {
         console.warn( 'this extension might not be fully compatible with your version ' +
             'of fabric.js (' + global.fabric.version + ').' +
             'Consider using the latest compatible build of fabric.js' + extCompat

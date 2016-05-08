@@ -14,7 +14,7 @@
 
 [![Bower version](https://badge.fury.io/bo/fabric.svg)](http://badge.fury.io/bo/fabric)
 [![NPM version](https://badge.fury.io/js/fabric.svg)](http://badge.fury.io/js/fabric)
-[![Downloads per month](https://img.shields.io/npm/dm/localeval.svg)](https://www.npmjs.org/package/fabric)
+[![Downloads per month](https://img.shields.io/npm/dm/fabric.svg)](https://www.npmjs.org/package/fabric)
 
 <!-- deps status -->
 
@@ -32,6 +32,11 @@
 <a href="http://fabricjs.com/kitchensink/" target="_blank"><img src="https://github.com/kangax/fabric.js/raw/master/lib/screenshot.png" style="width:300px;box-shadow:rgba(0,0,0,0.3) 0 0 5px"></a>
 
 Using Fabric.js, you can create and populate objects on canvas; objects like simple geometrical shapes — rectangles, circles, ellipses, polygons, or more complex shapes consisting of hundreds or thousands of simple paths. You can then scale, move, and rotate these objects with the mouse; modify their properties — color, transparency, z-index, etc. You can also manipulate these objects altogether — grouping them with a simple mouse selection.
+
+### Non-Technical Introduction to Fabric
+
+Fabric.js allows you to easily create simple shapes like rectangles, circles, triangles and other polygons or more complex shapes made up of many paths, onto the HTML `<canvas>` element on a webpage using JavaScript.  Fabric.js will then allow you to manipulate the size, position and rotation of these objects with a mouse.  It’s also possible to change some of the attributes of these objects such as their color, transparency, depth position on the webpage or selecting groups of these objects using the Fabric.js library. Fabric.js will also allow you to convert an SVG image into JavaScript data that can be used for putting it onto the `<canvas>` element.
+
 
 [Contributions](https://github.com/kangax/fabric.js/wiki/Love-Fabric%3F-Help-us-by...) are very much welcome!
 
@@ -82,7 +87,7 @@ Fabric.js started as a foundation for design editor on [printio.ru](http://print
     $ bower install fabric
 
 <h3 id="npm-install">Install with npm</h3>
-To install Fabric.js using npm, you must first manually [install Cario](http://cairographics.org/download/) on your system. Cario is a system library which powers node-canvas, which Fabric.js relies on. When the installation is complete, you may need to restart your terminal or command prompt before installing fabric.
+To install Fabric.js using npm, you must first manually [install Cairo](http://cairographics.org/download/) on your system. Cairo is a system library which powers node-canvas, which Fabric.js relies on. When the installation is complete, you may need to restart your terminal or command prompt before installing fabric.
 
     $ npm install fabric --save
 

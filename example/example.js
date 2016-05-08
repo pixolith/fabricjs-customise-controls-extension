@@ -52,6 +52,12 @@
         },
         tr: {
             icon: 'icons/resize.svg'
+        },
+        ml: {
+            icon: 'icons/diagonal-resize.svg'
+        },
+        mr: {
+            icon: 'icons/diagonal-resize.svg'
         }
     } );
 

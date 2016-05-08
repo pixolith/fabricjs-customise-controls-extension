@@ -1,6 +1,6 @@
 {
   "name": "fabric-customise-controls-master-compat",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-nodeunit": "~0.4.1",
