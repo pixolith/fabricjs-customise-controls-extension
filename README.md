@@ -1,6 +1,11 @@
 # Customise the controls of fabric.js
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
+# Note on version
+
+if you support the latest version of fabric.js 1.6.x use the release 0.1.0 of this extension. Otherwise all older releases have
+downward compatibility for fabric.js 1.5.0.
+
 # This is a working draft of the extension for the current fabric.js master
 https://github.com/kangax/fabric.js
 
