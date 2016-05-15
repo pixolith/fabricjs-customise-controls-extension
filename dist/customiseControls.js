@@ -23,7 +23,7 @@
             tl: 7 // nw
         };
 
-    if ( global.fabric.version.indexOf( extCompat ) ) {
+    if ( global.fabric.version.indexOf( extCompat ) === -1  ) {
         console.warn( 'this extension might not be fully compatible with your version ' +
             'of fabric.js (' + global.fabric.version + ').' +
             'Consider using the latest compatible build of fabric.js' + extCompat
