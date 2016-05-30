@@ -597,21 +597,32 @@
             this.renderAll();
         },
 
-        _setOriginToCenter: function( target ) {
-            target._originalOriginX = target.originX;
-            target._originalOriginY = target.originY;
-
-            target.set( {
-                originX: 'center',
-                originY: 'center'
-            } );
+      _setOriginToCenter: function( target ) {
+          target._originalOriginX = target.originX;
+          target._originalOriginY = target.originY;
+    
+          var center = target.getCenterPoint();
+    
+          target.set({
+            originX: 'center',
+            originY: 'center',
+            left: center.x,
+            top: center.y
+          });
         },
-
+    
         _setCenterToOrigin: function( target ) {
-            target.set( {
-                originX: target._originalOriginX,
-                originY: target._originalOriginY
-            } );
+          var originPoint = target.translateToOriginPoint(
+          target.getCenterPoint(),
+          target._originalOriginX,
+          target._originalOriginY);
+    
+          target.set({
+              originX: target._originalOriginX,
+              originY: target._originalOriginY,
+              left: originPoint.x,
+              top: originPoint.y
+          });
         },
 
         /**
