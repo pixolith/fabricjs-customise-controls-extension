@@ -37,7 +37,8 @@
                     left: 200
                 } );
                 canvas.renderAll();
-            }
+            },
+            cursor: 'pointer'
         },
         mt: {
             action: {
@@ -114,6 +115,9 @@
             },
             mt: {
                 icon: 'icons/acute.svg'
+            },
+            mr: {
+                icon: 'icons/repair-tools-cross.svg'
             }
         }, function() {
             canvas.renderAll();
@@ -163,6 +167,9 @@
             },
             mt: {
                 icon: 'icons/acute.svg'
+            },
+            mr: {
+                icon: 'icons/repair-tools-cross.svg'
             }
         }, function() {
             canvas.renderAll();
