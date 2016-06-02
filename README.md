@@ -85,7 +85,7 @@ currently the following actions are possible:
 * moveUp (z-index, custom) since 0.0.3
 * moveDown (z-index, custom) since 0.0.3
 * rotateByDegrees: int (custom) since 0.0.4 (origin can now be set to anything)
-* define your own functions so i don't have to do it since 0.1.2 ( see the example above, returned are always the e and the target for you to use )
+* define your own functions so i don't have to do it since 0.1.2 ( see the example above, returned are always the event and the target for you to use )
 
 **Default action is: 'scale'**
 
