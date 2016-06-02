@@ -31,6 +31,14 @@
             action: 'moveDown',
             cursor: 'pointer'
         },
+        mr: {
+            action: function( e, target ) {
+                target.set( {
+                    left: 200
+                } );
+                canvas.renderAll();
+            }
+        },
         mt: {
             action: {
                 'rotateByDegrees': 30

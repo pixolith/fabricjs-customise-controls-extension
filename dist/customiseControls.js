@@ -447,7 +447,12 @@
             var pointer = this.getPointer( e ),
                 corner = target._findTargetCorner( this.getPointer( e, true ) ),
                 action = this._getActionFromCorner( target, corner, e ),
-                origin = this._getOriginFromCorner( target, corner );
+                origin = this._getOriginFromCorner( target, corner ),
+                _this = this;
+
+            if ( typeof action === 'function' ) {
+                action.call( _this, e, target );
+            }
 
             this._currentTransform = {
                 target: target,
