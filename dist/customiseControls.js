@@ -130,8 +130,8 @@
             icon.onerror = function() {
                 fabric.warn( this.src + ' icon is not an image' );
             };
-            icon.crossOrigin = "Anonymous";
 
+            icon.crossOrigin = 'Anonymous';
             icon.src = iconUrl;
         },
 
