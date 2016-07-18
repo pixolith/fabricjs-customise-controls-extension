@@ -122,6 +122,7 @@
 
             icon.onload = function() {
                 self[ corner + 'Icon' ] = this;
+                console.log(this);
                 if ( callback && typeof( callback ) === 'function' ) {
                     callback();
                 }
@@ -131,7 +132,10 @@
                 fabric.warn( this.src + ' icon is not an image' );
             };
 
-            icon.crossOrigin = 'Anonymous';
+            if ( iconUrl.indexOf( 'http' ) > -1 ) {
+                icon.crossOrigin = 'Anonymous';
+            }
+
             icon.src = iconUrl;
         },
 
