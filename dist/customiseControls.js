@@ -122,7 +122,6 @@
 
             icon.onload = function() {
                 self[ corner + 'Icon' ] = this;
-                console.log(this);
                 if ( callback && typeof( callback ) === 'function' ) {
                     callback();
                 }
@@ -525,13 +524,24 @@
          */
 
         _removeAction: function( e, target ) {
+            var _this = this;
             if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
                 this.getActiveGroup().forEachObject( function( o ) {
                     o.remove();
                 } );
                 this.discardActiveGroup();
+
+                // as of fabric 1.6.3 necessary for reasons..
+                setTimeout( function() {
+                    _this.deactivateAll();
+                }, 0 );
+
             } else {
                 target.remove();
+
+                setTimeout( function() {
+                    _this.deactivateAll();
+                }, 0 );
             }
         },
 
