@@ -2,8 +2,17 @@
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
 # How to install
+
+## Bower
+
 ```
 bower install fabric-customise-controls --save
+```
+
+## npm
+
+```
+npm install fabric-customise-controls --save
 ```
 
 # Note on versions
