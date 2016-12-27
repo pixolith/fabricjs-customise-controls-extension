@@ -6,6 +6,7 @@
     "grunt-contrib-nodeunit": "~1.0.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "jit-grunt": "^0.10.0",
     "jscs": "^3.0.7"
   },
   "author": "SK",
