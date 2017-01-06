@@ -100,7 +100,7 @@ currently the following actions are possible:
 
 #### Note on having custom control actions for each object
 
-Since technically the prototype for binding actions in fabric.js is the Canvas which means you won't get custom controls for each object by default. @craziduezi came up with the idea of binding fabric.Canvas.prototype.customiseControls to an event handler and changing it on the fly if you need to. This is a nice workaround for something that would otherwise need to be changed in the core.
+Since technically the prototype for binding actions in fabric.js is the Canvas which means you won't get custom controls for each object by default. [@craziduezi](https://github.com/craziduezi) came up with the idea of binding fabric.Canvas.prototype.customiseControls to an event handler and changing it on the fly if you need to. This is a nice workaround for something that would otherwise need to be changed in the core.
 See this link for reference:
 https://github.com/pixolith/fabricjs-customise-controls-extension/issues/28
 
