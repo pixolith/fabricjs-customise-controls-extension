@@ -7,7 +7,7 @@
 ( function( global ) {
     'use strict';
     var fabric = global.fabric || ( global.fabric = {} ),
-        extCompat = '1.6',
+        extCompat = '1.7',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
         },
