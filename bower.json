@@ -1,6 +1,6 @@
 {
   "name": "fabric-customise-controls",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "main": "dist/customiseControls.js",
   "ignore": [
     "source",
