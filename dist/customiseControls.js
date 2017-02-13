@@ -23,7 +23,7 @@
             tl: 7 // nw
         };
 
-    if ( global.fabric.version.indexOf( extCompat ) === -1  ) {
+    if ( global.fabric.version.indexOf( extCompat ) === -1 ) {
         console.warn( 'this extension might not be fully compatible with your version ' +
             'of fabric.js (' + global.fabric.version + ').' +
             'Consider using the latest compatible build of fabric.js' + extCompat
@@ -182,6 +182,7 @@
             }
 
             ctx.save();
+            this._setLineDash( ctx, this.cornerDashArray, null );
 
             // top-left
             this._drawControl( 'tl', ctx, methodName,
@@ -267,9 +268,10 @@
             }
 
             var size = this.cornerSize,
+                stroke = !this.transparentCorners && this.cornerStrokeColor,
                 cornerBG = this.cornerBackgroundColor || 'black',
                 cornerShape = this.cornerShape || 'rect',
-                cornerPadding = this.cornerPadding || 10 ;
+                cornerPadding = this.cornerPadding || 10;
 
             if ( this.useCustomIcons ) {
                 if ( cornerShape ) {
@@ -278,6 +280,11 @@
                     switch ( cornerShape ) {
                         case 'rect':
                             ctx.fillRect( left, top, size, size );
+
+                            if ( stroke ) {
+                                ctx.stroke();
+                            }
+
                             if ( icon !== undefined ) {
                                 ctx[ methodName ](
                                     icon,
@@ -293,6 +300,11 @@
                             ctx.arc( left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI );
                             ctx.fill();
                             ctx.closePath();
+
+                            if ( stroke ) {
+                                ctx.stroke();
+                            }
+
                             if ( icon !== undefined ) {
                                 ctx[ methodName ](
                                     icon,
@@ -317,7 +329,10 @@
                 }
             } else {
                 isVML() || this.transparentCorners || ctx.clearRect( left, top, size, size );
-                ctx[ methodName ]( left, top, size, size );
+                ctx[ methodName + 'Rect' ]( left, top, size, size );
+                if ( stroke ) {
+                    ctx.strokeRect( left, top, size, size );
+                }
             }
 
         }
@@ -370,7 +385,7 @@
          */
 
         setCustomAction: function( corner, action ) {
-            this[ corner + 'Action' ] = action ;
+            this[ corner + 'Action' ] = action;
         },
 
         /**
@@ -380,7 +395,7 @@
          */
 
         setCustomCursor: function( corner, cursorUrl ) {
-            this[ corner + 'cursorIcon' ] = cursorUrl ;
+            this[ corner + 'cursorIcon' ] = cursorUrl;
         },
 
         /**
@@ -408,14 +423,14 @@
                             return this[ corner + 'Action' ] || 'rotate';
                         case 'ml':
                         case 'mr':
-                            if ( e.shiftKey ) {
-                                return e.shiftKey ? 'skewY' : 'scaleX';
+                            if ( e[ this.altActionKey ] ) {
+                                return e[ this.altActionKey ] ? 'skewY' : 'scaleX';
                             }
                             return this[ corner + 'Action' ];
                         case 'mt':
                         case 'mb':
-                            if ( e.shiftKey ) {
-                                return e.shiftKey ? 'skewY' : 'scaleY';
+                            if ( e[ this.altActionKey ] ) {
+                                return e[ this.altActionKey ] ? 'skewY' : 'scaleY';
                             }
                             return this[ corner + 'Action' ];
                         default:
@@ -427,10 +442,10 @@
                             return 'rotate';
                         case 'ml':
                         case 'mr':
-                            return e.shiftKey ? 'skewY' : 'scaleX';
+                            return e[ this.altActionKey ] ? 'skewY' : 'scaleX';
                         case 'mt':
                         case 'mb':
-                            return e.shiftKey ? 'skewX' : 'scaleY';
+                            return e[ this.altActionKey ] ? 'skewX' : 'scaleY';
                         default:
                             return 'scale';
                     }
@@ -451,11 +466,10 @@
             var pointer = this.getPointer( e ),
                 corner = target._findTargetCorner( this.getPointer( e, true ) ),
                 action = this._getActionFromCorner( target, corner, e ),
-                origin = this._getOriginFromCorner( target, corner ),
-                _this = this;
+                origin = this._getOriginFromCorner( target, corner );
 
             if ( typeof action === 'function' ) {
-                action.call( _this, e, target );
+                action.call( this, e, target );
             }
 
             this._currentTransform = {
@@ -481,7 +495,7 @@
                 mouseXSign: 1,
                 mouseYSign: 1,
                 shiftKey: e.shiftKey,
-                altKey: e.altKey
+                altKey: e[ this.centeredKey ]
             };
 
             this._currentTransform.original = {
@@ -633,16 +647,16 @@
 
         _setCenterToOrigin: function( target ) {
             var originPoint = target.translateToOriginPoint(
-            target.getCenterPoint(),
-            target._originalOriginX,
-            target._originalOriginY );
+                target.getCenterPoint(),
+                target._originalOriginX,
+                target._originalOriginY );
 
             target.set( {
-              originX: target._originalOriginX,
-              originY: target._originalOriginY,
-              left: originPoint.x,
-              top: originPoint.y
-          } );
+                originX: target._originalOriginX,
+                originY: target._originalOriginY,
+                left: originPoint.x,
+                top: originPoint.y
+            } );
         },
 
         /**
