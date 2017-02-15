@@ -83,7 +83,7 @@ This will overwrite the actions and cursor handler for adding custom actions.
 
 top-left corner passing an object consisting of corner action (see Actions) and cursor (see Cursors)
 
-* **cb: function **
+* **cb: function**
 
 Callback
 
@@ -175,7 +175,7 @@ inner Padding between icon image and background shape
 
 corner-type passing an object with the desired icon url
 
-* **cb: function **
+* **cb: function**
 
 Callback
 
