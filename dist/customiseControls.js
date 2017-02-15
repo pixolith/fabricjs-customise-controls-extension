@@ -7,7 +7,7 @@
 ( function( global ) {
     'use strict';
     var fabric = global.fabric || ( global.fabric = {} ),
-        extCompat = '1.7',
+        minExtCompat = '1.6.0',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
         },
@@ -23,10 +23,10 @@
             tl: 7 // nw
         };
 
-    if ( global.fabric.version.indexOf( extCompat ) === -1 ) {
+    if ( minExtCompat.localeCompare( global.fabric.version ) > -1 ) {
         console.warn( 'this extension might not be fully compatible with your version ' +
             'of fabric.js (' + global.fabric.version + ').' +
-            'Consider using the latest compatible build of fabric.js' + extCompat
+            'Consider using the latest compatible build of fabric.js (> ' + minExtCompat + ')'
         );
     }
 
@@ -131,7 +131,7 @@
                 fabric.warn( this.src + ' icon is not an image' );
             };
 
-            if ( iconUrl.indexOf( 'http' ) > -1 ) {
+            if ( iconUrl.match( /^http[s]?:\/\// ) || iconUrl.substring( 0, 2 ) === '//' ) {
                 icon.crossOrigin = 'Anonymous';
             }
 
@@ -171,7 +171,6 @@
                 methodName;
 
             if ( !this.useCustomIcons ) {
-
                 ctx.lineWidth = 1;
                 ctx.globalAlpha = this.isMoving ? this.borderOpacityWhenMoving : 1;
                 ctx.strokeStyle = ctx.fillStyle = this.cornerColor;
@@ -280,42 +279,29 @@
                     switch ( cornerShape ) {
                         case 'rect':
                             ctx.fillRect( left, top, size, size );
-
-                            if ( stroke ) {
-                                ctx.stroke();
-                            }
-
-                            if ( icon !== undefined ) {
-                                ctx[ methodName ](
-                                    icon,
-                                    left + cornerPadding / 2,
-                                    top + cornerPadding / 2,
-                                    size - cornerPadding,
-                                    size - cornerPadding
-                                );
-                            }
                             break;
                         case 'circle':
                             ctx.beginPath();
                             ctx.arc( left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI );
                             ctx.fill();
                             ctx.closePath();
-
-                            if ( stroke ) {
-                                ctx.stroke();
-                            }
-
-                            if ( icon !== undefined ) {
-                                ctx[ methodName ](
-                                    icon,
-                                    left + cornerPadding / 2,
-                                    top + cornerPadding / 2,
-                                    size - cornerPadding,
-                                    size - cornerPadding
-                                );
-                            }
                             break;
                     }
+
+                    if ( stroke ) {
+                        ctx.stroke();
+                    }
+
+                    if ( icon !== undefined ) {
+                        ctx[ methodName ](
+                            icon,
+                            left + cornerPadding / 2,
+                            top + cornerPadding / 2,
+                            size - cornerPadding,
+                            size - cornerPadding
+                        );
+                    }
+
                 } else {
                     if ( icon !== undefined ) {
                         ctx[ methodName ](
@@ -670,7 +656,7 @@
             var iconUrlPattern = /\.(?:jpe?g|png|gif|jpg|jpeg|svg)$/;
 
             if ( this.fixedCursors && this[ corner + 'cursorIcon' ] ) {
-                if ( iconUrlPattern.test( this[ corner + 'cursorIcon' ] ) ) {
+                if ( this[ corner + 'cursorIcon' ].match( iconUrlPattern ) ) {
                     this.setCursor( 'url(' + this[ corner + 'cursorIcon' ] + '), auto' );
                 } else {
                     if ( this[ corner + 'cursorIcon' ] === 'resize' ) {

@@ -72,7 +72,9 @@ fabric.Canvas.prototype.customiseControls({
             canvas.renderAll();
         }
      }
-});
+}, function() {
+    canvas.renderAll();
+} );
 ```
 
 This will overwrite the actions and cursor handler for adding custom actions.
@@ -80,6 +82,10 @@ This will overwrite the actions and cursor handler for adding custom actions.
 * **tl: object**
 
 top-left corner passing an object consisting of corner action (see Actions) and cursor (see Cursors)
+
+* **cb: function **
+
+Callback
 
 #### Actions:
 
@@ -138,7 +144,9 @@ fabric.Object.prototype.customiseCornerIcons({
     mb: {
         icon: 'icons/down.svg'
     }
-});
+}, function() {
+    canvas.renderAll();
+} );
 ```
 
 This will overwrite the controls handler (for all Objects) for adding custom icons and corresponding background-shapes and colors (since 0.0.3).
@@ -153,7 +161,7 @@ shape of the corner control box
 
 * **borderColor: string (color)**
 
-color of the bounding box border
+color of the bounding box border (even 'rgba(255, 165, 0, 0.25)' with opacity works)
 
 * **cornerBackgroundColor: string (color)**
 
@@ -167,6 +175,9 @@ inner Padding between icon image and background shape
 
 corner-type passing an object with the desired icon url
 
+* **cb: function **
+
+Callback
 
 You can also set these settings **Object specific** using inheritance of this prototype (since 0.0.3):
 
@@ -194,7 +205,9 @@ yourFabricObject.customiseCornerIcons({
     mb: {
         icon: 'icons/down.svg'
     }
-});
+}, function() {
+    canvas.renderAll();
+} );
 ```
 
 **Default is: currently not drawing anything but displaying a warning that your image might be corrupt unless cornerShape is set.

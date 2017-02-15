@@ -63,11 +63,13 @@
             icon: 'icons/resize.svg'
         },
         ml: {
-            icon: 'icons/diagonal-resize.svg'
+            icon: '//maxcdn.icons8.com/Share/icon/Logos//google_logo1600.png'
         },
         mr: {
             icon: 'icons/diagonal-resize.svg'
         }
+    }, function() {
+        canvas.renderAll();
     } );
 
     canvas = new fabric.Canvas( 'example', {
