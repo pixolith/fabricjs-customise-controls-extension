@@ -527,6 +527,7 @@
             var _this = this;
             if ( this.getActiveGroup() && this.getActiveGroup() !== 'undefined' ) {
                 this.getActiveGroup().forEachObject( function( o ) {
+                    o.off();
                     o.remove();
                 } );
                 this.discardActiveGroup();
@@ -537,6 +538,7 @@
                 }, 0 );
 
             } else {
+                target.off();
                 target.remove();
 
                 setTimeout( function() {
