@@ -4,9 +4,9 @@
  * Simon Kunz 09.02.2016 for pixolith
  * Licensed under the MIT license.
  */
-( function( global ) {
+( function( window ) {
     'use strict';
-    var fabric = global.fabric || ( global.fabric = {} ),
+    var fabric = window.fabric || ( window.fabric = {} ),
         minExtCompat = '1.6.0',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
@@ -23,9 +23,9 @@
             tl: 7 // nw
         };
 
-    if ( minExtCompat.localeCompare( global.fabric.version ) > -1 ) {
+    if ( minExtCompat.localeCompare( window.fabric.version ) > -1 ) {
         console.warn( 'this extension might not be fully compatible with your version ' +
-            'of fabric.js (' + global.fabric.version + ').' +
+            'of fabric.js (' + window.fabric.version + ').' +
             'Consider using the latest compatible build of fabric.js (> ' + minExtCompat + ')'
         );
     }
@@ -680,4 +680,8 @@
         }
     } );
 
-} )( typeof exports !== 'undefined' ? exports : this );
+    if (typeof exports !== 'undefined') {
+        module.exports = this;
+    }
+
+} )(window);
