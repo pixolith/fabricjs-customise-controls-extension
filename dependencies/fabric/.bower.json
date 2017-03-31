@@ -30,14 +30,14 @@
     "object model"
   ],
   "license": "MIT",
-  "version": "1.7.3",
-  "_release": "1.7.3",
+  "version": "1.7.9",
+  "_release": "1.7.9",
   "_resolution": {
     "type": "version",
-    "tag": "v1.7.3",
-    "commit": "01d8392ae310cd77ef509c7e9dd7839fde3e8e06"
+    "tag": "v1.7.9",
+    "commit": "6e2deabcb3eb2f74285892e75e5b05a2242888d2"
   },
   "_source": "https://github.com/kangax/fabric.js.git",
-  "_target": "~1.7.3",
+  "_target": "~1.7.9",
   "_originalSource": "fabric"
 }
