@@ -15,9 +15,14 @@ bower install fabric-customise-controls --save
 npm install fabric-customise-controls --save
 ```
 
+## yarn
+```
+yarn add fabric-customise-controls
+```
+
 # Note on versions
-if you support the latest version of fabric.js 1.6.x use the release 0.1.0 of this extension. Otherwise all older releases have
-downward compatibility for fabric.js 1.5.0.
+if you support the latest version of fabric.js (from 1.6.0 on) use the release 0.1.0 of this extension. Otherwise all older releases have
+downward compatibility for fabric.js 1.5.0 but of course not all current features.
 
 # Live Demo Page
 http://pixolith.github.io/fabricjs-customise-controls-extension/example/index.html
@@ -35,6 +40,12 @@ Add customiseControls.js (or its minified version) to your fabric.js project and
 ```
 <script defer src="../path-to/fabric.min.js"></script>
 <script defer src="../path-to/customiseControls.js"></script>
+```
+
+or ES6 import
+```
+import fabric from 'fabric';
+import 'fabric-customise-controls';
 ```
 
 ### Customising the Controls:
