@@ -211,36 +211,33 @@
                 this.brIcon
             );
 
-            if ( !this.get( 'lockUniScaling' ) ) {
+            // middle-top
+            this._drawControl( 'mt', ctx, methodName,
+                left + width / 2,
+                top,
+                this.mtIcon
+            );
 
-                // middle-top
-                this._drawControl( 'mt', ctx, methodName,
-                    left + width / 2,
-                    top,
-                    this.mtIcon
-                );
+            // middle-bottom
+            this._drawControl( 'mb', ctx, methodName,
+                left + width / 2,
+                top + height,
+                this.mbIcon
+            );
 
-                // middle-bottom
-                this._drawControl( 'mb', ctx, methodName,
-                    left + width / 2,
-                    top + height,
-                    this.mbIcon
-                );
+            // middle-right
+            this._drawControl( 'mr', ctx, methodName,
+                left + width,
+                top + height / 2,
+                this.mrIcon
+            );
 
-                // middle-right
-                this._drawControl( 'mr', ctx, methodName,
-                    left + width,
-                    top + height / 2,
-                    this.mrIcon
-                );
-
-                // middle-left
-                this._drawControl( 'ml', ctx, methodName,
-                    left,
-                    top + height / 2,
-                    this.mlIcon
-                );
-            }
+            // middle-left
+            this._drawControl( 'ml', ctx, methodName,
+                left,
+                top + height / 2,
+                this.mlIcon
+            );
 
             // middle-top-rotate
             if ( this.hasRotatingPoint ) {
