@@ -1,42 +1,39 @@
-/*global module: false, require: false */
+'use strict';
+module.exports = function(grunt) {
+    require('jit-grunt')(grunt, {});
 
-module.exports = function( grunt ) {
-    'use strict';
-
-    require( 'jit-grunt' )( grunt, {} );
-
-    grunt.initConfig( {
+    grunt.initConfig({
         uglify: {
             dist: {
                 options: {
-                    sourceMap: false
+                    sourceMap: false,
                 },
                 files: {
-                    'dist/customiseControls.min.js': 'dist/customiseControls.js'
-                }
-            }
+                    'dist/customiseControls.min.js': 'dist/customiseControls.js',
+                },
+            },
         },
         watch: {
             options: {
                 spawn: false,
                 interrupt: false,
-                debounceDelay: 50
+                debounceDelay: 50,
             },
             js: {
                 files: [
-                    'dist/*.js'
+                    'dist/*.js',
                 ],
                 tasks: [
-                    'js'
-                ]
-            }
-        }
-    } );
+                    'js',
+                ],
+            },
+        },
+    });
 
-    grunt.registerTask( 'default', [
-        'js'
-    ] );
-    grunt.registerTask( 'js', [
-        'uglify:dist'
-    ] );
+    grunt.registerTask('default', [
+        'js',
+    ]);
+    grunt.registerTask('js', [
+        'uglify:dist',
+    ]);
 };

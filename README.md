@@ -129,7 +129,7 @@ Depending on what you set the javascript will detect if you have set an image wh
 
 **Default is: resize direction cursor**
 
-### Customising the Corner Icons
+### Customising the corner icons
 
 ```
 fabric.Object.prototype.customiseCornerIcons({
@@ -224,7 +224,91 @@ yourFabricObject.customiseCornerIcons({
 **Default is: currently not drawing anything but displaying a warning that your image might be corrupt unless cornerShape is set.
 Then it will draw the Shape and display a console warn about the image url.**
 
-You can set the size of the control icons or the border color with the standard setter too if you like to, yet it is also included in
+### Customising the corner icons per corner (since 0.2.6)
+
+You can now set specific options per corner for increased customizability (currently limited to: **cornerShape**, **cornerBackgroundColor** and **cornerPadding**). This works on the prototype like this:
+
+```
+fabric.Object.prototype.customiseCornerIcons({
+    settings: {
+        borderColor: 'black',
+        cornerSize: 25,
+        cornerShape: 'rect',
+        cornerBackgroundColor: 'black',
+        cornerPadding: 10
+    },
+    tl: {
+        icon: 'icons/rotate.svg',
+        settings: {
+            cornerShape: 'rect',
+            cornerBackgroundColor: 'red',
+            cornerPadding: 10,
+        },
+    },
+    tr: {
+        icon: 'icons/resize.svg'
+    },
+    bl: {
+        icon: 'icons/remove.svg'
+    },
+    br: {
+        icon: 'icons/up.svg'
+    },
+    mb: {
+        icon: 'icons/down.svg'
+    }
+}, function() {
+    canvas.renderAll();
+} );
+```
+
+For the **object-specific** settings it works the same, simply putting the settings on the object you want to customise:
+
+```
+yourFabricObject.customiseCornerIcons({
+    settings: {
+        borderColor: 'black',
+        cornerSize: 25,
+        cornerShape: 'rect',
+        cornerBackgroundColor: 'black',
+        cornerPadding: 10
+    },
+    tl: {
+        icon: 'icons/rotate.svg',
+        settings: {
+            cornerShape: 'rect',
+            cornerBackgroundColor: 'red',
+            cornerPadding: 10,
+        },
+    },
+    tr: {
+        icon: 'icons/resize.svg',
+        settings: {
+            cornerShape: 'circle',
+            cornerBackgroundColor: '#000',
+            cornerPadding: 15,
+        },
+    },
+    bl: {
+        icon: 'icons/remove.svg'
+    },
+    br: {
+        icon: 'icons/up.svg'
+    },
+    mb: {
+        icon: 'icons/down.svg'
+    }
+}, function() {
+    canvas.renderAll();
+} );
+```
+
+Please note that setting this on the prototype for a specific corner will overwrite default settings for each corner, which means that your default config for a specific object
+will be overwritten by the corner prototype settings. So prototype corner settings are only viable if all objects have the same setup.
+You can check the newly added example for hints how this might be useful. 
+
+## fabric.js related settings
+You can set the size of the control icons or the border color with the standard setter too if you like, yet it is also included in
 the function above.
 
 ```

@@ -1,0 +1,51 @@
+/* Highlighting
+0 = OFF
+1 = WARNING
+2 = ERROR
+*/
+
+{
+    "extends": "eslint:recommended",
+    "root": true,
+    "rules": {
+        "indent": [
+            2,
+            4,
+            { "SwitchCase": 1 }
+        ],
+        "quotes": [
+            2,
+            "single",
+            "avoid-escape"
+        ],
+        "brace-style": [2, "1tbs"],
+        "comma-dangle": [2, "always-multiline"],
+        "consistent-return": 2,
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "no-console": 0,
+        "no-undef": 0,
+        "no-shadow": 0,
+        "no-bitwise": 2,
+        "eol-last": 2,
+        "dot-notation": 2,
+        "dot-location": [2, "property"],
+        "eqeqeq": [2, "allow-null"],
+        "no-inner-declarations": [2, "functions"],
+        "no-multi-spaces": 2,
+        "no-unused-expressions": 2,
+        "keyword-spacing": 2,
+        "space-before-blocks": 2,
+        "space-before-function-paren": [2, {"anonymous": "never", "named": "never"}],
+        "strict": [2, "global"]
+    },
+    "env": {
+        "browser": true
+    }
+}
