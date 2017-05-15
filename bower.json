@@ -1,6 +1,6 @@
 {
   "name": "fabric-customise-controls",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "main": "dist/customiseControls.js",
   "ignore": [
     "source",
@@ -18,6 +18,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "fabric": "~1.7.9"
+    "fabric": "~1.7.11"
   }
 }

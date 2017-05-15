@@ -1,6 +1,6 @@
 {
   "name": "fabric-customise-controls",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-nodeunit": "~1.0.0",
@@ -13,6 +13,6 @@
   "license": "MIT",
   "main": "dist/customiseControls.js",
   "dependencies": {
-    "fabric": "^1.7.9"
+    "fabric": "^1.7.11"
   }
 }
