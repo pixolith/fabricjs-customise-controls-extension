@@ -654,34 +654,6 @@
             this.renderAll();
         },
 
-        _setOriginToCenter: function(target) {
-            target._originalOriginX = target.originX;
-            target._originalOriginY = target.originY;
-
-            var center = target.getCenterPoint();
-
-            target.set({
-                originX: 'center',
-                originY: 'center',
-                left: center.x,
-                top: center.y,
-            });
-        },
-
-        _setCenterToOrigin: function(target) {
-            var originPoint = target.translateToOriginPoint(
-                target.getCenterPoint(),
-                target._originalOriginX,
-                target._originalOriginY);
-
-            target.set({
-                originX: target._originalOriginX,
-                originY: target._originalOriginY,
-                left: originPoint.x,
-                top: originPoint.y,
-            });
-        },
-
         /**
          * Sets either the standard behaviour cursors or if fixedCursors is true, tries to set a custom cursor
          * either by using an icon or a build-in cursor. Cursor icon extensions are matched with a regular expression.
