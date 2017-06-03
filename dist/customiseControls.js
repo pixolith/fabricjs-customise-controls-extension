@@ -9,9 +9,7 @@
 (function(window) {
     var fabric = window.fabric || ( window.fabric = {} ),
         minExtCompat = '1.6.0',
-        isVML = function() {
-            return typeof G_vmlCanvasManager !== 'undefined';
-        },
+        isVML = function() { return typeof G_vmlCanvasManager !== 'undefined'; },
         degreesToRadians = fabric.util.degreesToRadians,
         cursorOffset = {
             mt: 0, // n
@@ -177,12 +175,12 @@
                 return this;
             }
 
-            var wh = this._calculateCurrentDimensions(true),
+            var wh = this._calculateCurrentDimensions(),
                 width = wh.x,
                 height = wh.y,
                 scaleOffset = this.cornerSize,
-                left = -( width + scaleOffset ) / 2,
-                top = -( height + scaleOffset ) / 2,
+                left = -(width + scaleOffset) / 2,
+                top = -(height + scaleOffset) / 2,
                 methodName;
 
             if (!this.useCustomIcons) {
@@ -190,7 +188,11 @@
                 ctx.globalAlpha = this.isMoving ? this.borderOpacityWhenMoving : 1;
                 ctx.strokeStyle = ctx.fillStyle = this.cornerColor;
 
-                methodName = this.transparentCorners ? 'strokeRect' : 'fillRect';
+                if (!this.transparentCorners) {
+                    ctx.strokeStyle = this.cornerStrokeColor;
+                }
+
+                methodName = this.transparentCorners ? 'stroke' : 'fill';
             } else {
                 methodName = 'drawImage';
             }
@@ -548,7 +550,7 @@
                 }
             }
 
-            this._resetCurrentTransform(e);
+            this._resetCurrentTransform();
         },
 
         /**
