@@ -35,6 +35,11 @@ through easy settings in your fabric.js project preserving the opportunity to up
 Well, i have felt the need to adapt the fabric.js UI to the project is is put in. Especially special actions and icons for the
 controls were needed. Since you can't do that without massively hacking the core, it seemed cleaner to create this for future use.
 
+## Support
+If you want to support the development of this feel free to buy me a beer at <https://www.paypal.me/mdslktr>. I started this for a former client project of mine
+and knowing that the need for customisation in fabric.js is rather large especially when put in client branded projects. Today most of my time will
+be in different projects but actively supporting this extension for future fabric.js releases will still be a goal of mine until it hopefully lands natively in fabric.js itself.
+
 ## How to use
 Add customiseControls.js (or its minified version) to your fabric.js project and reference in your html:
 ```
