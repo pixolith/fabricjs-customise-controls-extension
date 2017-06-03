@@ -38,7 +38,7 @@ controls were needed. Since you can't do that without massively hacking the core
 ## Support
 If you want to support the development of this feel free to buy me a beer at <https://www.paypal.me/mdslktr>. I started this for a former client project of mine
 and knowing that the need for customisation in fabric.js is rather large especially when put in client branded projects. Today most of my time will
-be in different projects but actively supporting this extension for future fabric.js releases will still be a goal of mine until it hopefully lands natively in fabric.js itself.
+be in different projects but actively supporting this extension for future fabric.js releases will still be a goal of mine until it hopefully lands natively in [fabric.js](https://www.bountysource.com/issues/8054100-ability-to-customize-controls) itself.
 
 ## How to use
 Add customiseControls.js (or its minified version) to your fabric.js project and reference in your html:
