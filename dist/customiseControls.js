@@ -98,20 +98,22 @@
                         this.cornerPadding = obj[setting].cornerPadding;
                     }
 
-                    if (obj[setting].icon !== undefined) {
+                    if (obj[setting].icon !== undefined || Object.keys(obj)[0] === 'settings') {
                         this.useCustomIcons = true;
-
-                        cornerConfig.icon = obj[setting].icon;
 
                         if (obj[setting].settings !== undefined) {
                             cornerConfig.settings = obj[setting].settings;
                         }
 
-                        this.loadIcon(setting, cornerConfig, function() {
-                            if (callback && typeof( callback ) === 'function') {
-                                callback();
-                            }
-                        });
+                        if (obj[setting].icon !== undefined) {
+                            cornerConfig.icon = obj[setting].icon;
+
+                            this.loadIcon(setting, cornerConfig, function() {
+                                if (callback && typeof( callback ) === 'function') {
+                                    callback();
+                                }
+                            });
+                        }
                     }
                 }
             }
