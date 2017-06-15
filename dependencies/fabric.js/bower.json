@@ -2,9 +2,7 @@
   "name": "fabric.js",
   "homepage": "http://fabricjs.com",
   "authors": [
-    "kangax",
-    "Kienz",
-    "asturur"
+    "kangax", "Kienz", "asturur"
   ],
   "description": "Object model for HTML5 canvas, and SVG-to-canvas parser. Backed by jsdom and node-canvas.",
   "main": "./dist/fabric.min.js",
@@ -29,15 +27,5 @@
     "HTML5",
     "object model"
   ],
-  "license": "MIT",
-  "version": "1.7.13",
-  "_release": "1.7.13",
-  "_resolution": {
-    "type": "version",
-    "tag": "v1.7.13",
-    "commit": "17ad6c6a0aff7b9081fa28a23448c1ca4b976810"
-  },
-  "_source": "https://github.com/kangax/fabric.js.git",
-  "_target": "~1.7.13",
-  "_originalSource": "fabric"
+  "license": "MIT"
 }

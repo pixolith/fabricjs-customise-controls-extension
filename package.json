@@ -13,6 +13,6 @@
   "license": "MIT",
   "main": "dist/customiseControls.js",
   "dependencies": {
-    "fabric": "^1.7.11"
+    "fabric": "^1.7.13"
   }
 }

@@ -1,5 +1,5 @@
 var fabric = fabric || {
-    version: "1.7.13"
+    version: "1.7.11"
 };
 
 if (typeof exports !== "undefined") {
@@ -2751,7 +2751,7 @@ fabric.ElementsParser.prototype.checkIfDone = function() {
             return this;
         }
     };
-    fabric.Color.reRGBa = /^rgba?\(\s*(\d{1,3}(?:\.\d+)?\%?)\s*,\s*(\d{1,3}(?:\.\d+)?\%?)\s*,\s*(\d{1,3}(?:\.\d+)?\%?)\s*(?:\s*,\s*((?:\d*\.?\d+)?)\s*)?\)$/;
+    fabric.Color.reRGBa = /^rgba?\(\s*(\d{1,3}(?:\.\d+)?\%?)\s*,\s*(\d{1,3}(?:\.\d+)?\%?)\s*,\s*(\d{1,3}(?:\.\d+)?\%?)\s*(?:\s*,\s*(\d+(?:\.\d+)?)\s*)?\)$/;
     fabric.Color.reHSLa = /^hsla?\(\s*(\d{1,3})\s*,\s*(\d{1,3}\%)\s*,\s*(\d{1,3}\%)\s*(?:\s*,\s*(\d+(?:\.\d+)?)\s*)?\)$/;
     fabric.Color.reHex = /^#?([0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{4}|[0-9a-f]{3})$/i;
     fabric.Color.colorNameMap = {
@@ -4817,7 +4817,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
                 return;
             }
             var ignoreZoom = true, pointer = this.getPointer(e, ignoreZoom), activeGroup = this.getActiveGroup(), activeObject = this.getActiveObject(), activeTarget;
-            this.targets = [];
             if (activeGroup && !skipGroup && activeGroup === this._searchPossibleTargets([ activeGroup ], pointer)) {
                 this._fireOverOutEvents(activeGroup, e);
                 return activeGroup;
@@ -4834,6 +4833,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
                     activeTarget = activeObject;
                 }
             }
+            this.targets = [];
             var target = this._searchPossibleTargets(this._objects, pointer);
             if (e[this.altSelectionKey] && target && activeTarget && target !== activeTarget) {
                 target = activeTarget;
@@ -4842,32 +4842,35 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             return target;
         },
         _fireOverOutEvents: function(target, e) {
-            var overOpt, outOpt, hoveredTarget = this._hoveredTarget;
-            if (hoveredTarget !== target) {
-                overOpt = {
-                    e: e,
-                    target: target,
-                    previousTarget: this._hoveredTarget
-                };
-                outOpt = {
-                    e: e,
-                    target: this._hoveredTarget,
-                    nextTarget: target
-                };
-                this._hoveredTarget = target;
-            }
             if (target) {
-                if (hoveredTarget !== target) {
-                    if (hoveredTarget) {
-                        this.fire("mouse:out", outOpt);
-                        hoveredTarget.fire("mouseout", outOpt);
+                if (this._hoveredTarget !== target) {
+                    if (this._hoveredTarget) {
+                        this.fire("mouse:out", {
+                            target: this._hoveredTarget,
+                            e: e
+                        });
+                        this._hoveredTarget.fire("mouseout", {
+                            e: e
+                        });
                     }
-                    this.fire("mouse:over", overOpt);
-                    target.fire("mouseover", overOpt);
+                    this.fire("mouse:over", {
+                        target: target,
+                        e: e
+                    });
+                    target.fire("mouseover", {
+                        e: e
+                    });
+                    this._hoveredTarget = target;
                 }
-            } else if (hoveredTarget) {
-                this.fire("mouse:out", outOpt);
-                hoveredTarget.fire("mouseout", outOpt);
+            } else if (this._hoveredTarget) {
+                this.fire("mouse:out", {
+                    target: this._hoveredTarget,
+                    e: e
+                });
+                this._hoveredTarget.fire("mouseout", {
+                    e: e
+                });
+                this._hoveredTarget = null;
             }
         },
         _checkTarget: function(pointer, obj) {
@@ -4937,11 +4940,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
         },
         _createUpperCanvas: function() {
             var lowerCanvasClass = this.lowerCanvasEl.className.replace(/\s*lower-canvas\s*/, "");
-            if (this.upperCanvasEl) {
-                this.upperCanvasEl.className = "";
-            } else {
-                this.upperCanvasEl = this._createCanvasElement();
-            }
+            this.upperCanvasEl = this._createCanvasElement();
             fabric.util.addClass(this.upperCanvasEl, "upper-canvas " + lowerCanvasClass);
             this.wrapperEl.appendChild(this.upperCanvasEl);
             this._copyCanvasStyle(this.lowerCanvasEl, this.upperCanvasEl);
@@ -5007,6 +5006,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
                 });
             }
             this._setActiveObject(object);
+            this.renderAll();
             this.fire("object:selected", {
                 target: object,
                 e: e
@@ -5014,7 +5014,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             object.fire("selected", {
                 e: e
             });
-            this.renderAll();
             return this;
         },
         getActiveObject: function() {
@@ -5117,13 +5116,9 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             return this;
         },
         deactivateAllWithDispatch: function(e) {
-            var allObjects = this.getObjects(), i = 0, len = allObjects.length, obj;
-            for (;i < len; i++) {
-                obj = allObjects[i];
-                obj && obj.set("active", false);
-            }
             this.discardActiveGroup(e);
             this.discardActiveObject(e);
+            this.deactivateAll();
             return this;
         },
         dispose: function() {
@@ -5212,14 +5207,10 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
         bl: 5,
         ml: 6,
         tl: 7
-    }, addListener = fabric.util.addListener, removeListener = fabric.util.removeListener, RIGHT_CLICK = 3, MIDDLE_CLICK = 2, LEFT_CLICK = 1;
-    function checkClick(e, value) {
-        return "which" in e ? e.which === value : e.button === value - 1;
-    }
+    }, addListener = fabric.util.addListener, removeListener = fabric.util.removeListener;
     fabric.util.object.extend(fabric.Canvas.prototype, {
         cursorMap: [ "n-resize", "ne-resize", "e-resize", "se-resize", "s-resize", "sw-resize", "w-resize", "nw-resize" ],
         _initEventListeners: function() {
-            this.removeListeners();
             this._bindEvents();
             addListener(fabric.window, "resize", this._onResize);
             addListener(this.upperCanvasEl, "mousedown", this._onMouseDown);
@@ -5243,9 +5234,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             }
         },
         _bindEvents: function() {
-            if (this.eventsBinded) {
-                return;
-            }
             this._onMouseDown = this._onMouseDown.bind(this);
             this._onMouseMove = this._onMouseMove.bind(this);
             this._onMouseUp = this._onMouseUp.bind(this);
@@ -5259,7 +5247,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             this._onMouseOut = this._onMouseOut.bind(this);
             this._onMouseEnter = this._onMouseEnter.bind(this);
             this._onContextMenu = this._onContextMenu.bind(this);
-            this.eventsBinded = true;
         },
         removeListeners: function() {
             removeListener(fabric.window, "resize", this._onResize);
@@ -5380,24 +5367,11 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             return !!(target && (target.isMoving || target !== activeObject) || !target && !!activeObject || !target && !activeObject && !this._groupSelector || pointer && this._previousPointer && this.selection && (pointer.x !== this._previousPointer.x || pointer.y !== this._previousPointer.y));
         },
         __onMouseUp: function(e) {
-            var target;
-            if (checkClick(e, RIGHT_CLICK)) {
-                if (this.fireRightClick) {
-                    this._handleEvent(e, "up", target, RIGHT_CLICK);
-                }
-                return;
-            }
-            if (checkClick(e, MIDDLE_CLICK)) {
-                if (this.fireMiddleClick) {
-                    this._handleEvent(e, "up", target, MIDDLE_CLICK);
-                }
-                return;
-            }
+            var target, searchTarget = true, transform = this._currentTransform, groupSelector = this._groupSelector, isClick = !groupSelector || groupSelector.left === 0 && groupSelector.top === 0;
             if (this.isDrawingMode && this._isCurrentlyDrawing) {
                 this._onMouseUpInDrawingMode(e);
                 return;
             }
-            var searchTarget = true, transform = this._currentTransform, groupSelector = this._groupSelector, isClick = !groupSelector || groupSelector.left === 0 && groupSelector.top === 0;
             if (transform) {
                 this._finalizeCurrentTransform();
                 searchTarget = !transform.actionPerformed;
@@ -5413,18 +5387,19 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             if (target) {
                 target.isMoving = false;
             }
-            this._setCursorFromEvent(e, target);
-            this._handleEvent(e, "up", target ? target : null, LEFT_CLICK, isClick);
+            this._handleCursorAndEvent(e, target, "up");
             target && (target.__corner = 0);
             shouldRender && this.renderAll();
         },
-        _handleEvent: function(e, eventType, targetObj, button, isClick) {
+        _handleCursorAndEvent: function(e, target, eventType) {
+            this._setCursorFromEvent(e, target);
+            this._handleEvent(e, eventType, target ? target : null);
+        },
+        _handleEvent: function(e, eventType, targetObj) {
             var target = typeof targetObj === "undefined" ? this.findTarget(e) : targetObj, targets = this.targets || [], options = {
                 e: e,
                 target: target,
-                subTargets: targets,
-                button: button || LEFT_CLICK,
-                isClick: isClick || false
+                subTargets: targets
             };
             this.fire("mouse:" + eventType, options);
             target && target.fire("mouse" + eventType, options);
@@ -5485,15 +5460,17 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
         },
         __onMouseDown: function(e) {
             var target = this.findTarget(e);
-            if (checkClick(e, RIGHT_CLICK)) {
+            var isRightClick = "which" in e ? e.which === 3 : e.button === 2;
+            if (isRightClick) {
                 if (this.fireRightClick) {
-                    this._handleEvent(e, "down", target ? target : null, RIGHT_CLICK);
+                    this._handleEvent(e, "down", target ? target : null);
                 }
                 return;
             }
-            if (checkClick(e, MIDDLE_CLICK)) {
+            var isMiddleClick = "which" in e ? e.which === 2 : e.button === 1;
+            if (isMiddleClick) {
                 if (this.fireMiddleClick) {
-                    this._handleEvent(e, "down", target ? target : null, MIDDLE_CLICK);
+                    this._handleEvent(e, "down", target ? target : null);
                 }
                 return;
             }
@@ -5508,18 +5485,10 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             this._previousPointer = pointer;
             var shouldRender = this._shouldRender(target, pointer), shouldGroup = this._shouldGroup(e, target);
             if (this._shouldClearSelection(e, target)) {
-                this.deactivateAllWithDispatch(e);
+                this._clearSelection(e, target, pointer);
             } else if (shouldGroup) {
                 this._handleGrouping(e, target);
                 target = this.getActiveGroup();
-            }
-            if (this.selection && (!target || !target.selectable && !target.isEditing)) {
-                this._groupSelector = {
-                    ex: pointer.x,
-                    ey: pointer.y,
-                    top: 0,
-                    left: 0
-                };
             }
             if (target) {
                 if (target.selectable && (target.__corner || !shouldGroup)) {
@@ -5544,6 +5513,19 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             this.stateful && target.saveState();
             if (target._findTargetCorner(this.getPointer(e))) {
                 this.onBeforeScaleRotate(target);
+            }
+        },
+        _clearSelection: function(e, target, pointer) {
+            this.deactivateAllWithDispatch(e);
+            if (target && target.selectable) {
+                this.setActiveObject(target, e);
+            } else if (this.selection) {
+                this._groupSelector = {
+                    ex: pointer.x,
+                    ey: pointer.y,
+                    top: 0,
+                    left: 0
+                };
             }
         },
         _setOriginToCenter: function(target) {
@@ -5656,7 +5638,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, {
             }
         },
         _setCursorFromEvent: function(e, target) {
-            if (!target) {
+            if (!target || !target.selectable) {
                 this.setCursor(this.defaultCursor);
                 return false;
             }
@@ -5868,29 +5850,23 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
             return;
         }
         var serialized = typeof json === "string" ? JSON.parse(json) : fabric.util.object.clone(json);
-        var _this = this, renderOnAddRemove = this.renderOnAddRemove;
-        this.renderOnAddRemove = false;
-        this._enlivenObjects(serialized.objects, function(enlivenedObjects) {
-            _this.clear();
+        this.clear();
+        var _this = this;
+        this._enlivenObjects(serialized.objects, function() {
             _this._setBgOverlay(serialized, function() {
-                enlivenedObjects.forEach(function(obj, index) {
-                    _this.insertAt(obj, index);
-                });
-                _this.renderOnAddRemove = renderOnAddRemove;
                 delete serialized.objects;
                 delete serialized.backgroundImage;
                 delete serialized.overlayImage;
                 delete serialized.background;
                 delete serialized.overlay;
                 _this._setOptions(serialized);
-                _this.renderAll();
                 callback && callback();
             });
         }, reviver);
         return this;
     },
     _setBgOverlay: function(serialized, callback) {
-        var loaded = {
+        var _this = this, loaded = {
             backgroundColor: false,
             overlayColor: false,
             backgroundImage: false,
@@ -5902,6 +5878,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
         }
         var cbIfLoaded = function() {
             if (loaded.backgroundImage && loaded.overlayImage && loaded.backgroundColor && loaded.overlayColor) {
+                _this.renderAll();
                 callback && callback();
             }
         };
@@ -5931,12 +5908,19 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
         }
     },
     _enlivenObjects: function(objects, callback, reviver) {
+        var _this = this;
         if (!objects || objects.length === 0) {
-            callback && callback([]);
+            callback && callback();
             return;
         }
+        var renderOnAddRemove = this.renderOnAddRemove;
+        this.renderOnAddRemove = false;
         fabric.util.enlivenObjects(objects, function(enlivenedObjects) {
-            callback && callback(enlivenedObjects);
+            enlivenedObjects.forEach(function(obj, index) {
+                _this.insertAt(obj, index);
+            });
+            _this.renderOnAddRemove = renderOnAddRemove;
+            callback && callback();
         }, null, reviver);
     },
     _toDataURL: function(format, callback) {
@@ -6051,12 +6035,16 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
         statefullCache: false,
         noScaleCache: true,
         dirty: true,
+        needsItsOwnCache: false,
         stateProperties: ("top left width height scaleX scaleY flipX flipY originX originY transformMatrix " + "stroke strokeWidth strokeDashArray strokeLineCap strokeLineJoin strokeMiterLimit " + "angle opacity fill fillRule globalCompositeOperation shadow clipTo visible backgroundColor " + "skewX skewY").split(" "),
         cacheProperties: ("fill stroke strokeWidth strokeDashArray width height stroke strokeWidth strokeDashArray" + " strokeLineCap strokeLineJoin strokeMiterLimit fillRule backgroundColor").split(" "),
         initialize: function(options) {
             options = options || {};
             if (options) {
                 this.setOptions(options);
+            }
+            if (this.objectCaching) {
+                this._createCacheCanvas();
             }
         },
         _createCacheCanvas: function() {
@@ -6077,7 +6065,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
         _updateCacheCanvas: function() {
             if (this.noScaleCache && this.canvas && this.canvas._currentTransform) {
                 var action = this.canvas._currentTransform.action;
-                if (action.slice && action.slice(0, 5) === "scale") {
+                if (action.slice(0, 5) === "scale") {
                     return false;
                 }
             }
@@ -6244,7 +6232,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
                 ctx.transform.apply(ctx, this.transformMatrix);
             }
             this.clipTo && fabric.util.clipContext(this, ctx);
-            if (this.shouldCache(noTransform)) {
+            if (this.shouldCache()) {
                 if (!this._cacheCanvas) {
                     this._createCacheCanvas();
                 }
@@ -6267,11 +6255,8 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
             this.clipTo && ctx.restore();
             ctx.restore();
         },
-        needsItsOwnCache: function() {
-            return false;
-        },
-        shouldCache: function(noTransform) {
-            return !noTransform && this.objectCaching && (!this.group || this.needsItsOwnCache() || !this.group.isCaching());
+        shouldCache: function() {
+            return this.objectCaching && (!this.group || this.needsItsOwnCache || !this.group.isCaching());
         },
         willDrawShadow: function() {
             return !!this.shadow;
@@ -7942,7 +7927,7 @@ fabric.util.object.extend(fabric.Object.prototype, {
             });
         },
         toSVG: function(reviver) {
-            var points = [], diffX = 0, diffY = 0, markup = this._createBaseSVGMarkup();
+            var points = [], diffX, diffY, markup = this._createBaseSVGMarkup();
             if (!(this.group && this.group.type === "path-group")) {
                 diffX = this.pathOffset.x;
                 diffY = this.pathOffset.y;
@@ -8066,7 +8051,9 @@ fabric.util.object.extend(fabric.Object.prototype, {
         cacheProperties: cacheProperties,
         initialize: function(path, options) {
             options = options || {};
-            this.callSuper("initialize", options);
+            if (options) {
+                this.setOptions(options);
+            }
             if (!path) {
                 path = [];
             }
@@ -8079,6 +8066,9 @@ fabric.util.object.extend(fabric.Object.prototype, {
                 this.path = this._parsePath();
             }
             this._setPositionDimensions(options);
+            if (this.objectCaching) {
+                this._createCacheCanvas();
+            }
         },
         _setPositionDimensions: function(options) {
             var calcDim = this._parseDimensions();
@@ -8543,7 +8533,7 @@ fabric.util.object.extend(fabric.Object.prototype, {
                 var pathUrl = object.path;
                 path = elements[0];
                 delete object.path;
-                path.setOptions(object);
+                fabric.util.object.extend(path, object);
                 path.setSourcePath(pathUrl);
                 callback && callback(path);
             });
@@ -8581,6 +8571,9 @@ fabric.util.object.extend(fabric.Object.prototype, {
             }
             this.setOptions(options);
             this.setCoords();
+            if (this.objectCaching) {
+                this._createCacheCanvas();
+            }
         },
         parseDimensionsFromPaths: function(options) {
             var points, p, xC = [], yC = [], path, height, width, m;
@@ -8623,7 +8616,7 @@ fabric.util.object.extend(fabric.Object.prototype, {
             ctx.restore();
         },
         shouldCache: function() {
-            var parentCache = this.objectCaching && (!this.group || this.needsItsOwnCache() || !this.group.isCaching());
+            var parentCache = this.objectCaching && (!this.group || this.needsItsOwnCache || !this.group.isCaching());
             this.caching = parentCache;
             if (parentCache) {
                 for (var i = 0, len = this.paths.length; i < len; i++) {
@@ -8822,7 +8815,6 @@ fabric.util.object.extend(fabric.Object.prototype, {
             this.forEachObject(this._setObjectActive, this);
             this._calcBounds();
             this._updateObjectsCoords();
-            this.setCoords();
             this.dirty = true;
             return this;
         },
@@ -8837,7 +8829,6 @@ fabric.util.object.extend(fabric.Object.prototype, {
             this.remove(object);
             this._calcBounds();
             this._updateObjectsCoords();
-            this.setCoords();
             this.dirty = true;
             return this;
         },
@@ -8907,7 +8898,7 @@ fabric.util.object.extend(fabric.Object.prototype, {
             this._transformDone = false;
         },
         shouldCache: function() {
-            var parentCache = this.objectCaching && (!this.group || this.needsItsOwnCache() || !this.group.isCaching());
+            var parentCache = this.objectCaching && (!this.group || this.needsItsOwnCache || !this.group.isCaching());
             this.caching = parentCache;
             if (parentCache) {
                 for (var i = 0, len = this._objects.length; i < len; i++) {
@@ -10351,7 +10342,7 @@ fabric.Image.filters.BaseFilter.fromObject = function(object, callback) {
         },
         _getCacheCanvasDimensions: function() {
             var dim = this.callSuper("_getCacheCanvasDimensions");
-            var fontSize = this.fontSize;
+            var fontSize = this.fontSize * 2;
             dim.width += fontSize * dim.zoomX;
             dim.height += fontSize * dim.zoomY;
             return dim;
@@ -11919,7 +11910,7 @@ fabric.util.object.extend(fabric.IText.prototype, {
     onMouseDown: function(options) {
         this.__newClickTime = +new Date();
         var newPointer = this.canvas.getPointer(options.e);
-        if (this.isTripleClick(newPointer, options.e)) {
+        if (this.isTripleClick(newPointer)) {
             this.fire("tripleclick", options);
             this._stopEvent(options.e);
         } else if (this.isDoubleClick(newPointer)) {
@@ -11957,7 +11948,7 @@ fabric.util.object.extend(fabric.IText.prototype, {
     },
     initMousedownHandler: function() {
         this.on("mousedown", function(options) {
-            if (!this.editable || options.e.button && options.e.button !== 1) {
+            if (!this.editable) {
                 return;
             }
             var pointer = this.canvas.getPointer(options.e);
@@ -11983,7 +11974,7 @@ fabric.util.object.extend(fabric.IText.prototype, {
     initMouseupHandler: function() {
         this.on("mouseup", function(options) {
             this.__isMousedown = false;
-            if (!this.editable || this._isObjectMoved(options.e) || options.e.button && options.e.button !== 1) {
+            if (!this.editable || this._isObjectMoved(options.e)) {
                 return;
             }
             if (this.__lastSelected && !this.__corner) {

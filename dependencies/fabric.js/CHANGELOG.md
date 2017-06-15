@@ -1,25 +1,3 @@
-**Version 1.7.13**
-
-- Fix: Try to minimize delay in loadFroJson [#4007](https://github.com/kangax/fabric.js/pull/4007)
-- Fix: allow fabric.Color to parse rgba(x,y,z,.a) without leading 0 [#4006](https://github.com/kangax/fabric.js/pull/4006)
-- Allow path to execute Object.initialize, make extensions easier [#4005](https://github.com/kangax/fabric.js/pull/4005)
-- Fix: properly set options from path fromDatalessObjects [#3995](https://github.com/kangax/fabric.js/pull/3995)
-- Check for slice before action.slice. Avoid conflicts with heavy customized code. [#3992](https://github.com/kangax/fabric.js/pull/3992)
-
-
-**Version 1.7.12**
-
-- Fix: removed possible memleaks from window resize event. [#3984](https://github.com/kangax/fabric.js/pull/3984)
-- Fix: restored default cursor to noTarget only. unselectable objects get the standard hovercursor. [#3953](https://github.com/kangax/fabric.js/pull/3953)
-- Cache fixes: fix uncached pathGroup, removed cache creation at initialize time [#3982](https://github.com/kangax/fabric.js/pull/3982)
-- Improvement: nextTarget to mouseOut and prevTarget to mouseOver [#3900](https://github.com/kangax/fabric.js/pull/3900)
-- Improvement: add isClick boolean to left mouse up [#3898](https://github.com/kangax/fabric.js/pull/3898)
-- Fix: can start selection on top of non selectable object [#3892](https://github.com/kangax/fabric.js/pull/3892)
-- Improvement: better management of right/middle click [#3888](https://github.com/kangax/fabric.js/pull/3888)
-- Fix: subTargetCheck on activeObject/activeGroup was firing too many events [#3909](https://github.com/kangax/fabric.js/pull/3909)
-- Fix: After addWithUpdate or removeWithUpdate object coords must be updated. [#3911](https://github.com/kangax/fabric.js/pull/3911)
-
-
 **Version 1.7.11**
 
 - Hotfix: restore path-groups ability to render [#3877](https://github.com/kangax/fabric.js/pull/3877)
