@@ -304,6 +304,7 @@
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
                 cornerPadding = settings.cornerPadding || cornerPadding;
+                size = settings.cornerSize || size;
             }
 
             if (this.useCustomIcons) {
@@ -315,6 +316,13 @@
                             ctx.fillRect(left, top, size, size);
                             break;
                         case 'circle':
+                            
+                             if(settings && settings.cornerSize){
+                                left = - ( this._calculateCurrentDimensions().x + size ) / 2;
+                                top  = - ( this._calculateCurrentDimensions().y + size ) / 2;
+                            }
+                            
+                            
                             ctx.beginPath();
                             ctx.arc(left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI);
                             ctx.fill();
