@@ -317,9 +317,31 @@
                             break;
                         case 'circle':
                             
-                             if(settings && settings.cornerSize){
-                                left = - ( this._calculateCurrentDimensions().x + size ) / 2;
-                                top  = - ( this._calculateCurrentDimensions().y + size ) / 2;
+                            if(settings && settings.cornerSize){
+
+                                switch(control){
+                                    case 'tl' :
+
+                                        left = - ( this._calculateCurrentDimensions().x + size ) / 2;
+                                        top  = - ( this._calculateCurrentDimensions().y + size ) / 2;
+                                        break;
+
+                                    case 'tr' :
+                                        left = - ( this._calculateCurrentDimensions().x + size ) / 2 +  this._calculateCurrentDimensions().x;
+                                        top  = - ( this._calculateCurrentDimensions().y + size ) / 2;
+                                        break;
+
+                                    // case 'tl' :
+                                    //     break;
+                                    //
+                                    // case 'tl' :
+                                    //     break;
+
+                                    default:
+                                        break;
+
+                                }
+
                             }
                             
                             
