@@ -299,8 +299,14 @@
                 cornerBG = this.cornerBackgroundColor || 'black',
                 cornerShape = this.cornerShape || 'rect',
                 cornerPadding = this.cornerPadding || 10;
-
+                
             if (settings) {
+                if(settings.cornerSize){
+                    // Set the size, and also recalc left and top
+                    left = left + size/2 - settings.cornerSize/2;
+                    top = top + size/2 - settings.cornerSize/2;
+                    size = settings.cornerSize;
+                }
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
                 cornerPadding = settings.cornerPadding || cornerPadding;
@@ -320,7 +326,7 @@
                             ctx.fill();
                             ctx.closePath();
                             break;
-                    }
+                        }
 
                     if (stroke) {
                         ctx.stroke();
