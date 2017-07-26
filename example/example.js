@@ -97,6 +97,7 @@
             originX: 'center',
             originY: 'center',
             hasRotatingPoint: false,
+            cornerStrokeColor: 'blue'
         });
 
         // overwrite the prototype object based
