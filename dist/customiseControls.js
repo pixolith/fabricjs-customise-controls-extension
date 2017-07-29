@@ -299,9 +299,9 @@
                 cornerBG = this.cornerBackgroundColor || 'black',
                 cornerShape = this.cornerShape || 'rect',
                 cornerPadding = this.cornerPadding || 10;
-                
+
             if (settings) {
-                if(settings.cornerSize){
+                if (settings.cornerSize) {
                     // Set the size, and also recalc left and top
                     left = left + size/2 - settings.cornerSize/2;
                     top = top + size/2 - settings.cornerSize/2;
@@ -321,13 +321,21 @@
                     switch (cornerShape) {
                         case 'rect':
                             ctx.fillRect(left, top, size, size);
-                            ctx.strokeRect(left, top, size, size);
+
+                            if (cornerStroke) {
+                                ctx.strokeRect(left, top, size, size);
+                            }
+
                             break;
                         case 'circle':
                             ctx.beginPath();
                             ctx.arc(left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI);
                             ctx.fill();
-                            ctx.stroke();
+
+                            if (cornerStroke) {
+                                ctx.stroke();
+                            }
+
                             ctx.closePath();
                             break;
                     }
@@ -356,7 +364,7 @@
             } else {
                 isVML() || this.transparentCorners || ctx.clearRect(left, top, size, size);
                 ctx[methodName + 'Rect'](left, top, size, size);
-                if (!this.transparentCorners && this.cornerStrokeColor) {
+                if (!this.transparentCorners && cornerStroke) {
                     ctx.strokeRect(left, top, size, size);
                 }
             }
