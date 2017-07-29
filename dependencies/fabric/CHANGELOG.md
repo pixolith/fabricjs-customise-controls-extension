@@ -1,3 +1,32 @@
+**Version 1.7.17**
+
+- Change: swapped style white-space:nowrap with attribute wrap="off" since the style rule was creating problems in browsers like ie11 and safari. [#4119](https://github.com/kangax/fabric.js/pull/4119)
+- Fix: Remove an object from activeGroup if removed from canvas [#4120](https://github.com/kangax/fabric.js/pull/4120)
+- Fix: avoid bringFroward, sendBackwards to swap objects in active selections [#4119](https://github.com/kangax/fabric.js/pull/4119)
+- Fix: avoid disposing canvas on mouse event to throw error [#4119](https://github.com/kangax/fabric.js/pull/4119)
+- Fix: make svg respect white spaces [#4119](https://github.com/kangax/fabric.js/pull/4119)
+- Fix: avoid exporting bgImage and overlayImage if excludeFromExport = true [#4119](https://github.com/kangax/fabric.js/pull/4119)
+- Fix: Avoid group fromObject mutating original data [#4111](https://github.com/kangax/fabric.js/pull/4111)
+
+**Version 1.7.16**
+
+- Improvement: Add information to onChange and onComplete animation function [#4068](https://github.com/kangax/fabric.js/pull/4068)
+- Improvement: avoid multiplying identity matrices in calcTransformMatrix function
+- Fix: ativeGroup did not destroy correctly if a toObject was happening
+- Improvement: Pass the event to object:modified when available. [#4061](https://github.com/kangax/fabric.js/pull/4061)
+
+**Version 1.7.15**
+
+- Improvement: Made iText keymap public. [#4053](https://github.com/kangax/fabric.js/pull/4053)
+- Improvement: Fix a bug in updateCacheCanvas that was returning always true [#4051](https://github.com/kangax/fabric.js/pull/4051)
+
+**Version 1.7.14**
+
+- Improvement: Avoid cache canvas to resize each mouse move step. [#4037](https://github.com/kangax/fabric.js/pull/4037)
+- Improvement: Make cache canvas limited in size. [#4035](https://github.com/kangax/fabric.js/pull/4035)
+- Fix: Make groups and statefull cache work. [#4032](https://github.com/kangax/fabric.js/pull/4032)
+- Add: Marked the hiddentextarea from itext so that custom projects can recognize it. [#4022](https://github.com/kangax/fabric.js/pull/4022)
+
 **Version 1.7.13**
 
 - Fix: Try to minimize delay in loadFroJson [#4007](https://github.com/kangax/fabric.js/pull/4007)
