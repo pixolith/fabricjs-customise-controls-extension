@@ -217,7 +217,7 @@
                     cornerShape: 'rect',
                     cornerBackgroundColor: randomColor(),
                     cornerPadding: 10,
-                    cornerSize: 35
+                    cornerSize: 35,
                 },
             },
             tr: {
@@ -226,7 +226,7 @@
                     cornerShape: 'circle',
                     cornerBackgroundColor: randomColor(),
                     cornerPadding: 15,
-                    cornerSize: 15
+                    cornerSize: 20,
                 },
             },
             bl: {

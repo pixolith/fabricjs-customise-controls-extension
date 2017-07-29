@@ -9,7 +9,9 @@
 (function(window) {
     var fabric = window.fabric || ( window.fabric = {} ),
         minExtCompat = '1.6.0',
-        isVML = function() { return typeof G_vmlCanvasManager !== 'undefined'; },
+        isVML = function() {
+            return typeof G_vmlCanvasManager !== 'undefined';
+        },
         degreesToRadians = fabric.util.degreesToRadians,
         cursorOffset = {
             mt: 0, // n
@@ -303,8 +305,8 @@
             if (settings) {
                 if (settings.cornerSize) {
                     // Set the size, and also recalc left and top
-                    left = left + size/2 - settings.cornerSize/2;
-                    top = top + size/2 - settings.cornerSize/2;
+                    left = left + size / 2 - settings.cornerSize / 2;
+                    top = top + size / 2 - settings.cornerSize / 2;
                     size = settings.cornerSize;
                 }
                 cornerShape = settings.cornerShape || cornerShape;
@@ -338,7 +340,7 @@
 
                             ctx.closePath();
                             break;
-                        }
+                    }
 
                     if (icon !== undefined) {
                         ctx[methodName](
