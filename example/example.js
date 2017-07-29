@@ -97,6 +97,7 @@
             originX: 'center',
             originY: 'center',
             hasRotatingPoint: false,
+            cornerStrokeColor: 'blue'
         });
 
         // overwrite the prototype object based
@@ -216,6 +217,7 @@
                     cornerShape: 'rect',
                     cornerBackgroundColor: randomColor(),
                     cornerPadding: 10,
+                    cornerSize: 35
                 },
             },
             tr: {
@@ -224,6 +226,7 @@
                     cornerShape: 'circle',
                     cornerBackgroundColor: randomColor(),
                     cornerPadding: 15,
+                    cornerSize: 15
                 },
             },
             bl: {

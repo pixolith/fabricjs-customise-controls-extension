@@ -295,12 +295,18 @@
             }
 
             var size = this.cornerSize,
-                stroke = !this.transparentCorners && this.cornerStrokeColor,
+                cornerStroke = this.cornerStrokeColor || 'transparent',
                 cornerBG = this.cornerBackgroundColor || 'black',
                 cornerShape = this.cornerShape || 'rect',
                 cornerPadding = this.cornerPadding || 10;
-
+                
             if (settings) {
+                if(settings.cornerSize){
+                    // Set the size, and also recalc left and top
+                    left = left + size/2 - settings.cornerSize/2;
+                    top = top + size/2 - settings.cornerSize/2;
+                    size = settings.cornerSize;
+                }
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
                 cornerPadding = settings.cornerPadding || cornerPadding;
@@ -310,20 +316,20 @@
                 if (cornerShape) {
                     ctx.globalAlpha = 1;
                     ctx.fillStyle = cornerBG;
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = cornerStroke;
                     switch (cornerShape) {
                         case 'rect':
                             ctx.fillRect(left, top, size, size);
+                            ctx.strokeRect(left, top, size, size);
                             break;
                         case 'circle':
                             ctx.beginPath();
                             ctx.arc(left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI);
                             ctx.fill();
+                            ctx.stroke();
                             ctx.closePath();
                             break;
-                    }
-
-                    if (stroke) {
-                        ctx.stroke();
                     }
 
                     if (icon !== undefined) {
@@ -350,7 +356,7 @@
             } else {
                 isVML() || this.transparentCorners || ctx.clearRect(left, top, size, size);
                 ctx[methodName + 'Rect'](left, top, size, size);
-                if (stroke) {
+                if (!this.transparentCorners && this.cornerStrokeColor) {
                     ctx.strokeRect(left, top, size, size);
                 }
             }
