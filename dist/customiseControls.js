@@ -330,7 +330,7 @@
                             ctx.stroke();
                             ctx.closePath();
                             break;
-                    }
+                        }
 
                     if (icon !== undefined) {
                         ctx[methodName](
