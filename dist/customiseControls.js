@@ -312,6 +312,7 @@
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
                 cornerPadding = settings.cornerPadding || cornerPadding;
+                size = settings.cornerSize || size;
             }
 
             if (this.useCustomIcons) {
@@ -330,6 +331,35 @@
 
                             break;
                         case 'circle':
+                            
+                            if(settings && settings.cornerSize){
+
+                                switch(control){
+                                    case 'tl' :
+
+                                        left = - ( this._calculateCurrentDimensions().x + size ) / 2;
+                                        top  = - ( this._calculateCurrentDimensions().y + size ) / 2;
+                                        break;
+
+                                    case 'tr' :
+                                        left = - ( this._calculateCurrentDimensions().x + size ) / 2 +  this._calculateCurrentDimensions().x;
+                                        top  = - ( this._calculateCurrentDimensions().y + size ) / 2;
+                                        break;
+
+                                    // case 'tl' :
+                                    //     break;
+                                    //
+                                    // case 'tl' :
+                                    //     break;
+
+                                    default:
+                                        break;
+
+                                }
+
+                            }
+                            
+                            
                             ctx.beginPath();
                             ctx.arc(left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI);
                             ctx.fill();
