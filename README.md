@@ -231,7 +231,7 @@ Then it will draw the Shape and display a console warn about the image url.**
 
 ### Customising the corner icons per corner (since 0.2.6)
 
-You can now set specific options per corner for increased customizability (currently limited to: **cornerShape**, **cornerBackgroundColor** and **cornerPadding**). This works on the prototype like this:
+You can now set specific options per corner for increased customizability (currently limited to: **cornerShape**, **cornerBackgroundColor**, **cornerPadding** and **cornerSize (since 0.3.4) **). This works on the prototype like this:
 
 ```
 fabric.Object.prototype.customiseCornerIcons({
@@ -248,6 +248,8 @@ fabric.Object.prototype.customiseCornerIcons({
             cornerShape: 'rect',
             cornerBackgroundColor: 'red',
             cornerPadding: 10,
+            // since 0.3.4
+            cornerSize: 15
         },
     },
     tr: {
