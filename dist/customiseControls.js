@@ -318,7 +318,7 @@
                 if (cornerShape) {
                     ctx.globalAlpha = 1;
                     ctx.fillStyle = cornerBG;
-                    ctx.lineWidth = 2;
+                    ctx.lineWidth = 1;
                     ctx.strokeStyle = cornerStroke;
                     switch (cornerShape) {
                         case 'rect':
