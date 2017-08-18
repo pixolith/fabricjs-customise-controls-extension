@@ -21,7 +21,7 @@ yarn add fabric-customise-controls
 ```
 
 # Note on versions
-if you support the latest version of fabric.js (from 1.6.0 on) use the release 0.1.0 of this extension. Otherwise all older releases have
+if you support the latest version of fabric.js (from 1.6.0 on and excluding 2.x beta) use **at least** version 0.1.0 of this extension. Otherwise all older releases have
 downward compatibility for fabric.js 1.5.0 but of course not all current features.
 
 # Live Demo Page
@@ -312,7 +312,7 @@ yourFabricObject.customiseCornerIcons({
 
 Please note that setting this on the prototype for a specific corner will overwrite default settings for each corner, which means that your default config for a specific object
 will be overwritten by the corner prototype settings. So prototype corner settings are only viable if all objects have the same setup.
-You can check the newly added example for hints how this might be useful. 
+You can check the newly added example for hints how this might be useful.
 
 ## fabric.js related settings
 You can set the size of the control icons or the border color with the standard setter too if you like, yet it is also included in
