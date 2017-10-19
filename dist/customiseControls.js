@@ -312,6 +312,7 @@
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
                 cornerPadding = settings.cornerPadding || cornerPadding;
+                cornerStroke = settings.cornerStrokeColor || cornerStroke;
             }
 
             if (this.useCustomIcons) {
