@@ -23,7 +23,10 @@ yarn add fabric-customise-controls
 # Note on versions
 if you support the latest version of fabric.js (from 1.6.0 on and excluding 2.x beta) use **at least** version 0.1.0 of this extension. Otherwise all older releases have
 downward compatibility for fabric.js 1.5.0 but of course not all current features.
-Please note that fabric 2 is currently not supported as i don't have the time to keep up with beta changes. I will probably try to support it when 2.0.0 gets out of beta. Nonetheless, PRs are always welcome.
+Check the Next branch
+
+# Migration to 2.x
+Checkout the Next branch where a first version which tries to support fabric 2.x is released. It might not be 100% stable or production ready. PRs always welcome.
 
 # Live Demo Page
 http://pixolith.github.io/fabricjs-customise-controls-extension/example/index.html

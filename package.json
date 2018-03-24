@@ -1,18 +1,18 @@
 {
   "name": "fabric-customise-controls",
-  "version": "0.3.6",
+  "version": "2.0.0-beta",
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.2",
     "grunt-contrib-nodeunit": "~1.0.0",
-    "grunt-contrib-uglify": "^3.0.0",
+    "grunt-contrib-uglify": "^3.3.0",
     "grunt-contrib-watch": "^1.0.0",
     "jit-grunt": "^0.10.0",
-    "eslint": "^3.18.0"
+    "eslint": "^4.19.1"
   },
   "author": "SK",
   "license": "MIT",
   "main": "dist/customiseControls.js",
   "dependencies": {
-    "fabric": "^1.7.17"
+    "fabric": "^2.2.2"
   }
 }

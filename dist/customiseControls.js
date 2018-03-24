@@ -581,25 +581,17 @@
 
         _removeAction: function(e, target) {
             var _this = this;
-            if (this.getActiveGroup() && this.getActiveGroup() !== 'undefined') {
-                this.getActiveGroup().forEachObject(function(o) {
+            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+                this.getActiveObjects().forEach(function(o) {
                     o.off();
-                    o.remove();
+                    _this.discardActiveObject();
+                    _this.remove(o);
                 });
-                this.discardActiveGroup();
-
-                // as of fabric 1.6.3 necessary for reasons..
-                setTimeout(function() {
-                    _this.deactivateAll();
-                }, 0);
 
             } else {
                 target.off();
-                target.remove();
-
-                setTimeout(function() {
-                    _this.deactivateAll();
-                }, 0);
+                this.discardActiveObject();
+                this.remove(target);
             }
         },
 
@@ -611,8 +603,8 @@
          */
 
         _moveLayerUpAction: function(e, target) {
-            if (this.getActiveGroup() && this.getActiveGroup() !== 'undefined') {
-                this.getActiveGroup().forEachObject(function(o) {
+            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+                this.getActiveObjects().forEach(function(o) {
                     o.bringForward();
                 });
             } else {
@@ -628,8 +620,8 @@
          */
 
         _moveLayerDownAction: function(e, target) {
-            if (this.getActiveGroup() && this.getActiveGroup() !== 'undefined') {
-                this.getActiveGroup().forEachObject(function(o) {
+            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+                this.getActiveObjects().forEach(function(o) {
                     o.sendBackwards();
                 });
             } else {
@@ -646,7 +638,7 @@
          */
 
         _rotateByDegrees: function(e, target, value) {
-            var angle = parseInt(target.getAngle()) + value,
+            var angle = parseInt(target.get('angle')) + value,
                 needsOriginRestore = false;
 
             if (( target.originX !== 'center' || target.originY !== 'center' ) && target.centeredRotation) {
@@ -656,15 +648,15 @@
 
             angle = angle > 360 ? angle - 360 : angle;
 
-            if (this.getActiveGroup() && this.getActiveGroup() !== 'undefined') {
-                this.getActiveGroup().forEachObject(function(obj) {
+            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+                this.getActiveObjects().forEach(function(obj) {
                     obj
-                        .setAngle(angle)
+                        .set('angle', angle)
                         .setCoords();
                 });
             } else {
                 target
-                    .setAngle(angle)
+                    .set('angle', angle)
                     .setCoords();
             }
 
@@ -682,8 +674,12 @@
          * {string} corner name
          * {target} event handler of the hovered corner
          */
-        _setCornerCursor: function(corner, target, e) {
+        getCornerCursor: function(corner, target, e) {
             var iconUrlPattern = /\.(?:jpe?g|png|gif|jpg|jpeg|svg)$/;
+
+            if (this.actionIsDisabled(corner, target, e)) {
+                return this.notAllowedCursor;
+            }
 
             if (this.fixedCursors && this[corner + 'cursorIcon']) {
                 if (this[corner + 'cursorIcon'].match(iconUrlPattern)) {
