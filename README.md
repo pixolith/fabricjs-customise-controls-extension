@@ -20,6 +20,9 @@ npm install fabric-customise-controls --save
 yarn add fabric-customise-controls
 ```
 
+## Using fabric.js 2.x ?
+Please fetch release 2.0.0-beta or check the [next](https://github.com/pixolith/fabricjs-customise-controls-extension/tree/next) branch
+
 # Note on versions
 if you support the latest version of fabric.js (from 1.6.0 on and excluding 2.x beta) use **at least** version 0.1.0 of this extension. Otherwise all older releases have
 downward compatibility for fabric.js 1.5.0 but of course not all current features.
