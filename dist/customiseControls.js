@@ -300,7 +300,7 @@
                 cornerStroke = this.cornerStrokeColor || 'transparent',
                 cornerBG = this.cornerBackgroundColor || 'black',
                 cornerShape = this.cornerShape || 'rect',
-                cornerPadding = this.cornerPadding || 10;
+                cornerPadding = typeof this.cornerPadding === 'number' ? this.cornerPadding : 10;
 
             if (settings) {
                 if (settings.cornerSize) {
@@ -311,7 +311,7 @@
                 }
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
-                cornerPadding = settings.cornerPadding || cornerPadding;
+                cornerPadding = typeof settings.cornerPadding === 'number' ? settings.cornerPadding : cornerPadding;
                 cornerStroke = settings.cornerStrokeColor || cornerStroke;
             }
 
