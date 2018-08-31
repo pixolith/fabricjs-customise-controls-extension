@@ -91,7 +91,12 @@ fabric.Canvas.prototype.customiseControls({
             } );
             canvas.renderAll();
         }
-     }
+     },
+     // only is hasRotatingPoint is not set to false
+     mtr: {
+        action: 'rotate',
+        cursor: 'cow.png'
+     },
 }, function() {
     canvas.renderAll();
 } );
@@ -163,7 +168,11 @@ fabric.Object.prototype.customiseCornerIcons({
     },
     mb: {
         icon: 'icons/down.svg'
-    }
+    },
+    // only is hasRotatingPoint is not set to false
+    mtr: {
+        icon: 'icons/rotate.svg'
+    },
 }, function() {
     canvas.renderAll();
 } );
@@ -224,7 +233,11 @@ yourFabricObject.customiseCornerIcons({
     },
     mb: {
         icon: 'icons/down.svg'
-    }
+    },
+    // only is hasRotatingPoint is not set to false
+    mtr: {
+        icon: 'icons/rotate.svg'
+    },
 }, function() {
     canvas.renderAll();
 } );
@@ -267,7 +280,11 @@ fabric.Object.prototype.customiseCornerIcons({
     },
     mb: {
         icon: 'icons/down.svg'
-    }
+    },
+    // only is hasRotatingPoint is not set to false
+    mtr: {
+        icon: 'icons/rotate.svg'
+    },
 }, function() {
     canvas.renderAll();
 } );
@@ -308,7 +325,11 @@ yourFabricObject.customiseCornerIcons({
     },
     mb: {
         icon: 'icons/down.svg'
-    }
+    },
+    // only is hasRotatingPoint is not set to false
+    mtr: {
+        icon: 'icons/rotate.svg'
+    },
 }, function() {
     canvas.renderAll();
 } );

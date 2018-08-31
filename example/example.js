@@ -25,6 +25,10 @@
             action: 'rotate',
             cursor: 'cow.png',
         },
+        mtr: {
+            action: 'rotate',
+            cursor: 'cow.png',
+        },
         tr: {
             action: 'scale',
         },
@@ -77,6 +81,9 @@
         mr: {
             icon: 'icons/diagonal-resize.svg',
         },
+        mtr: {
+            icon: 'icons/rotate.svg',
+        },
     }, function() {
         canvas.renderAll();
     });
@@ -96,8 +103,7 @@
             scaleY: 0.2,
             originX: 'center',
             originY: 'center',
-            hasRotatingPoint: false,
-            cornerStrokeColor: 'blue'
+            cornerStrokeColor: 'blue',
         });
 
         // overwrite the prototype object based
@@ -130,6 +136,9 @@
             mr: {
                 icon: 'icons/repair-tools-cross.svg',
             },
+            mtr: {
+                icon: 'icons/rotate.svg',
+            },
         }, function() {
             canvas.renderAll();
         });
@@ -149,7 +158,6 @@
             scaleY: 0.2,
             originX: 'center',
             originY: 'center',
-            hasRotatingPoint: false,
         });
 
         // overwrite the prototype object based
@@ -182,6 +190,9 @@
             mr: {
                 icon: 'icons/repair-tools-cross.svg',
             },
+            mtr: {
+                icon: 'icons/rotate.svg',
+            },
         }, function() {
             canvas.renderAll();
         });
@@ -199,7 +210,6 @@
             scaleY: 0.05,
             originX: 'center',
             originY: 'center',
-            hasRotatingPoint: false,
         });
 
         // overwrite the prototype object based
