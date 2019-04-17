@@ -2,7 +2,6 @@
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
 # How to install
-```
 
 ## npm
 
