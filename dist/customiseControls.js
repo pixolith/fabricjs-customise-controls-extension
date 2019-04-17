@@ -496,9 +496,10 @@
          * @private
          * @param {Event} e Event object
          * @param {fabric.Object} target
+         * @param {Boolean} alreadySelected
          */
-        _setupCurrentTransform: function(e, target) {
-            if (!target) {
+        _setupCurrentTransform: function(e, target, alreadySelected) {
+            if (!target || !alreadySelected) {
                 return;
             }
 
