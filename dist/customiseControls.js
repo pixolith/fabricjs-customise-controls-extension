@@ -7,7 +7,7 @@
 
 'use strict';
 (function(window) {
-    var fabric = window.fabric || ( window.fabric = {} ),
+    var fabric = window.fabric || (window.fabric = {}),
         minExtCompat = '1.6.0',
         isVML = function() {
             return typeof G_vmlCanvasManager !== 'undefined';
@@ -25,14 +25,18 @@
         };
 
     if (minExtCompat.localeCompare(window.fabric.version) > -1) {
-        console.warn('this extension might not be fully compatible with your version ' +
-            'of fabric.js (' + window.fabric.version + ').' +
-            'Consider using the latest compatible build of fabric.js (> ' + minExtCompat + ')'
+        console.warn(
+            'this extension might not be fully compatible with your version ' +
+                'of fabric.js (' +
+                window.fabric.version +
+                ').' +
+                'Consider using the latest compatible build of fabric.js (> ' +
+                minExtCompat +
+                ')'
         );
     }
 
     fabric.util.object.extend(fabric.Object.prototype, {
-
         /**
          * When true, image icons are loaded via the drawImage method
          * @type Boolean
@@ -72,12 +76,10 @@
          */
 
         customiseCornerIcons: function(obj, callback) {
-            var setting,
-                cornerConfig;
+            var setting, cornerConfig;
 
             for (setting in obj) {
                 if (obj.hasOwnProperty(setting)) {
-
                     cornerConfig = {};
 
                     if (obj[setting].cornerShape !== undefined) {
@@ -85,7 +87,8 @@
                     }
 
                     if (obj[setting].cornerBackgroundColor !== undefined) {
-                        this.cornerBackgroundColor = obj[setting].cornerBackgroundColor;
+                        this.cornerBackgroundColor =
+                            obj[setting].cornerBackgroundColor;
                     }
 
                     if (obj[setting].borderColor !== undefined) {
@@ -100,7 +103,10 @@
                         this.cornerPadding = obj[setting].cornerPadding;
                     }
 
-                    if (obj[setting].icon !== undefined || Object.keys(obj)[0] === 'settings') {
+                    if (
+                        obj[setting].icon !== undefined ||
+                        Object.keys(obj)[0] === 'settings'
+                    ) {
                         this.useCustomIcons = true;
 
                         if (obj[setting].settings !== undefined) {
@@ -111,7 +117,10 @@
                             cornerConfig.icon = obj[setting].icon;
 
                             this.loadIcon(setting, cornerConfig, function() {
-                                if (callback && typeof( callback ) === 'function') {
+                                if (
+                                    callback &&
+                                    typeof callback === 'function'
+                                ) {
                                     callback();
                                 }
                             });
@@ -139,7 +148,7 @@
                     self[corner + 'Settings'] = cornerConfig.settings;
                 }
 
-                if (callback && typeof( callback ) === 'function') {
+                if (callback && typeof callback === 'function') {
                     callback();
                 }
             };
@@ -148,7 +157,10 @@
                 fabric.warn(this.src + ' icon is not an image');
             };
 
-            if (cornerConfig.icon.match(/^http[s]?:\/\//) || cornerConfig.icon.substring(0, 2) === '//') {
+            if (
+                cornerConfig.icon.match(/^http[s]?:\/\//) ||
+                cornerConfig.icon.substring(0, 2) === '//'
+            ) {
                 icon.crossOrigin = 'Anonymous';
             }
 
@@ -174,7 +186,6 @@
          */
 
         drawControls: function(ctx) {
-
             if (!this.hasControls) {
                 return this;
             }
@@ -189,7 +200,9 @@
 
             if (!this.useCustomIcons) {
                 ctx.lineWidth = 1;
-                ctx.globalAlpha = this.isMoving ? this.borderOpacityWhenMoving : 1;
+                ctx.globalAlpha = this.isMoving
+                    ? this.borderOpacityWhenMoving
+                    : 1;
                 ctx.strokeStyle = ctx.fillStyle = this.cornerColor;
 
                 if (!this.transparentCorners) {
@@ -205,7 +218,10 @@
             this._setLineDash(ctx, this.cornerDashArray, null);
 
             // top-left
-            this._drawControl('tl', ctx, methodName,
+            this._drawControl(
+                'tl',
+                ctx,
+                methodName,
                 left,
                 top,
                 this.tlIcon,
@@ -213,7 +229,10 @@
             );
 
             // top-right
-            this._drawControl('tr', ctx, methodName,
+            this._drawControl(
+                'tr',
+                ctx,
+                methodName,
                 left + width,
                 top,
                 this.trIcon,
@@ -221,7 +240,10 @@
             );
 
             // bottom-left
-            this._drawControl('bl', ctx, methodName,
+            this._drawControl(
+                'bl',
+                ctx,
+                methodName,
                 left,
                 top + height,
                 this.blIcon,
@@ -229,7 +251,10 @@
             );
 
             // bottom-right
-            this._drawControl('br', ctx, methodName,
+            this._drawControl(
+                'br',
+                ctx,
+                methodName,
                 left + width,
                 top + height,
                 this.brIcon,
@@ -237,9 +262,11 @@
             );
 
             if (!this.get('lockUniScaling')) {
-
                 // middle-top
-                this._drawControl('mt', ctx, methodName,
+                this._drawControl(
+                    'mt',
+                    ctx,
+                    methodName,
                     left + width / 2,
                     top,
                     this.mtIcon,
@@ -247,7 +274,10 @@
                 );
 
                 // middle-bottom
-                this._drawControl('mb', ctx, methodName,
+                this._drawControl(
+                    'mb',
+                    ctx,
+                    methodName,
                     left + width / 2,
                     top + height,
                     this.mbIcon,
@@ -255,7 +285,10 @@
                 );
 
                 // middle-right
-                this._drawControl('mr', ctx, methodName,
+                this._drawControl(
+                    'mr',
+                    ctx,
+                    methodName,
                     left + width,
                     top + height / 2,
                     this.mrIcon,
@@ -263,7 +296,10 @@
                 );
 
                 // middle-left
-                this._drawControl('ml', ctx, methodName,
+                this._drawControl(
+                    'ml',
+                    ctx,
+                    methodName,
                     left,
                     top + height / 2,
                     this.mlIcon,
@@ -273,7 +309,10 @@
 
             // middle-top-rotate
             if (this.hasRotatingPoint) {
-                this._drawControl('mtr', ctx, methodName,
+                this._drawControl(
+                    'mtr',
+                    ctx,
+                    methodName,
                     left + width / 2,
                     top - this.rotatingPointOffset,
                     this.mtrIcon,
@@ -291,7 +330,15 @@
          * {string} icon url of the control
          */
 
-        _drawControl: function(control, ctx, methodName, left, top, icon, settings) {
+        _drawControl: function(
+            control,
+            ctx,
+            methodName,
+            left,
+            top,
+            icon,
+            settings
+        ) {
             if (!this.isControlVisible(control)) {
                 return;
             }
@@ -300,7 +347,10 @@
                 cornerStroke = this.cornerStrokeColor || 'transparent',
                 cornerBG = this.cornerBackgroundColor || 'black',
                 cornerShape = this.cornerShape || 'rect',
-                cornerPadding = typeof this.cornerPadding === 'number' ? this.cornerPadding : 10;
+                cornerPadding =
+                    typeof this.cornerPadding === 'number'
+                        ? this.cornerPadding
+                        : 10;
 
             if (settings) {
                 if (settings.cornerSize) {
@@ -311,7 +361,10 @@
                 }
                 cornerShape = settings.cornerShape || cornerShape;
                 cornerBG = settings.cornerBackgroundColor || cornerBG;
-                cornerPadding = typeof settings.cornerPadding === 'number' ? settings.cornerPadding : cornerPadding;
+                cornerPadding =
+                    typeof settings.cornerPadding === 'number'
+                        ? settings.cornerPadding
+                        : cornerPadding;
                 cornerStroke = settings.cornerStrokeColor || cornerStroke;
             }
 
@@ -332,7 +385,13 @@
                             break;
                         case 'circle':
                             ctx.beginPath();
-                            ctx.arc(left + size / 2, top + size / 2, size / 2, 0, 2 * Math.PI);
+                            ctx.arc(
+                                left + size / 2,
+                                top + size / 2,
+                                size / 2,
+                                0,
+                                2 * Math.PI
+                            );
                             ctx.fill();
 
                             if (cornerStroke) {
@@ -352,26 +411,20 @@
                             size - cornerPadding
                         );
                     }
-
                 } else {
                     if (icon !== undefined) {
-                        ctx[methodName](
-                            icon,
-                            left,
-                            top,
-                            size,
-                            size
-                        );
+                        ctx[methodName](icon, left, top, size, size);
                     }
                 }
             } else {
-                isVML() || this.transparentCorners || ctx.clearRect(left, top, size, size);
+                isVML() ||
+                    this.transparentCorners ||
+                    ctx.clearRect(left, top, size, size);
                 ctx[methodName + 'Rect'](left, top, size, size);
                 if (!this.transparentCorners && cornerStroke) {
                     ctx.strokeRect(left, top, size, size);
                 }
             }
-
         },
     });
 
@@ -461,13 +514,17 @@
                         case 'ml':
                         case 'mr':
                             if (e[this.altActionKey]) {
-                                return e[this.altActionKey] ? 'skewY' : 'scaleX';
+                                return e[this.altActionKey]
+                                    ? 'skewY'
+                                    : 'scaleX';
                             }
                             return this[corner + 'Action'];
                         case 'mt':
                         case 'mb':
                             if (e[this.altActionKey]) {
-                                return e[this.altActionKey] ? 'skewY' : 'scaleY';
+                                return e[this.altActionKey]
+                                    ? 'skewY'
+                                    : 'scaleY';
                             }
                             return this[corner + 'Action'];
                         default:
@@ -499,7 +556,6 @@
          * @param {Boolean} alreadySelected
          */
         _setupCurrentTransform: function(e, target, alreadySelected) {
-            console.log(target, alreadySelected);
             if (!target) {
                 return;
             }
@@ -510,13 +566,13 @@
                 origin = this._getOriginFromCorner(target, corner);
 
             if (typeof action === 'function') {
+                if (!alreadySelected) {
+                    return;
+                }
+
                 action.call(this, e, target);
                 // as of fabric 1.7.11 object cache will try to slice the action to check for scale so we need to convert this to a string
                 action = 'void';
-            }
-
-            if (action === 'remove' && !alreadySelected) {
-                return;
             }
 
             this._currentTransform = {
@@ -557,19 +613,31 @@
             };
 
             if (action === 'remove') {
+                if (!alreadySelected) {
+                    return;
+                }
                 this._removeAction(e, target);
             }
 
             if (action === 'moveUp') {
+                if (!alreadySelected) {
+                    return;
+                }
                 this._moveLayerUpAction(e, target);
             }
 
             if (action === 'moveDown') {
+                if (!alreadySelected) {
+                    return;
+                }
                 this._moveLayerDownAction(e, target);
             }
 
             if (typeof action === 'object') {
                 if (Object.keys(action)[0] === 'rotateByDegrees') {
+                    if (!alreadySelected) {
+                        return;
+                    }
                     this._rotateByDegrees(e, target, action.rotateByDegrees);
                 }
             }
@@ -586,13 +654,15 @@
 
         _removeAction: function(e, target) {
             var _this = this;
-            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+            if (
+                this.getActiveObjects() &&
+                this.getActiveObjects() !== 'undefined'
+            ) {
                 this.getActiveObjects().forEach(function(o) {
                     o.off();
                     _this.discardActiveObject();
                     _this.remove(o);
                 });
-
             } else {
                 target.off();
                 this.discardActiveObject();
@@ -608,7 +678,10 @@
          */
 
         _moveLayerUpAction: function(e, target) {
-            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+            if (
+                this.getActiveObjects() &&
+                this.getActiveObjects() !== 'undefined'
+            ) {
                 this.getActiveObjects().forEach(function(o) {
                     o.bringForward();
                 });
@@ -625,7 +698,10 @@
          */
 
         _moveLayerDownAction: function(e, target) {
-            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+            if (
+                this.getActiveObjects() &&
+                this.getActiveObjects() !== 'undefined'
+            ) {
                 this.getActiveObjects().forEach(function(o) {
                     o.sendBackwards();
                 });
@@ -646,23 +722,25 @@
             var angle = parseInt(target.get('angle')) + value,
                 needsOriginRestore = false;
 
-            if (( target.originX !== 'center' || target.originY !== 'center' ) && target.centeredRotation) {
+            if (
+                (target.originX !== 'center' || target.originY !== 'center') &&
+                target.centeredRotation
+            ) {
                 this._setOriginToCenter(target);
                 needsOriginRestore = true;
             }
 
             angle = angle > 360 ? angle - 360 : angle;
 
-            if (this.getActiveObjects() && this.getActiveObjects() !== 'undefined') {
+            if (
+                this.getActiveObjects() &&
+                this.getActiveObjects() !== 'undefined'
+            ) {
                 this.getActiveObjects().forEach(function(obj) {
-                    obj
-                        .set('angle', angle)
-                        .setCoords();
+                    obj.set('angle', angle).setCoords();
                 });
             } else {
-                target
-                    .set('angle', angle)
-                    .setCoords();
+                target.set('angle', angle).setCoords();
             }
 
             if (needsOriginRestore) {
@@ -688,17 +766,23 @@
 
             if (this.fixedCursors && this[corner + 'cursorIcon']) {
                 if (this[corner + 'cursorIcon'].match(iconUrlPattern)) {
-                    this.setCursor('url(' + this[corner + 'cursorIcon'] + '), auto');
+                    this.setCursor(
+                        'url(' + this[corner + 'cursorIcon'] + '), auto'
+                    );
                 } else {
                     if (this[corner + 'cursorIcon'] === 'resize') {
-                        this.setCursor(this._getRotatedCornerCursor(corner, target, e));
+                        this.setCursor(
+                            this._getRotatedCornerCursor(corner, target, e)
+                        );
                     } else {
                         this.setCursor(this[corner + 'cursorIcon']);
                     }
                 }
             } else {
                 if (corner in cursorOffset) {
-                    this.setCursor(this._getRotatedCornerCursor(corner, target, e));
+                    this.setCursor(
+                        this._getRotatedCornerCursor(corner, target, e)
+                    );
                 } else if (corner === 'mtr' && target.hasRotatingPoint) {
                     this.setCursor(this.rotationCursor);
                 } else {
@@ -714,5 +798,4 @@
     if (typeof exports !== 'undefined') {
         module.exports = this;
     }
-
 })(window);
