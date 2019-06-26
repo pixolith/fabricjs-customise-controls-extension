@@ -499,7 +499,8 @@
          * @param {Boolean} alreadySelected
          */
         _setupCurrentTransform: function(e, target, alreadySelected) {
-            if (!target || !alreadySelected) {
+            console.log(target, alreadySelected);
+            if (!target) {
                 return;
             }
 
@@ -510,9 +511,12 @@
 
             if (typeof action === 'function') {
                 action.call(this, e, target);
-
                 // as of fabric 1.7.11 object cache will try to slice the action to check for scale so we need to convert this to a string
                 action = 'void';
+            }
+
+            if (action === 'remove' && !alreadySelected) {
+                return;
             }
 
             this._currentTransform = {
