@@ -426,7 +426,7 @@
                 }
             }
         },
-        
+
         /**
          * Sets the coordinates of the draggable boxes in the corners of
          * the image used to scale/rotate it.
@@ -439,7 +439,7 @@
             for (var point in coords) {
                 /* Math.sqrt(2 * Math.pow(this.cornerSize, 2)) / 2, */
                 /* 0.707106 stands for sqrt(2)/2 */
-                var cornerHypotenuse = (this[point + "Settings"] && this[point + "Settings"].cornerSize || this.cornerSize) * 0.707106,
+                var cornerHypotenuse = (this[point + 'Settings'] && this[point + 'Settings'].cornerSize || this.cornerSize) * 0.707106,
                     cosHalfOffset = cornerHypotenuse * fabric.util.cos(newTheta),
                     sinHalfOffset = cornerHypotenuse * fabric.util.sin(newTheta),
                     x, y;
@@ -449,20 +449,20 @@
                 coords[point].corner = {
                     tl: {
                         x: x - sinHalfOffset,
-                        y: y - cosHalfOffset
+                        y: y - cosHalfOffset,
                     },
                     tr: {
                         x: x + cosHalfOffset,
-                        y: y - sinHalfOffset
+                        y: y - sinHalfOffset,
                     },
                     bl: {
                         x: x - cosHalfOffset,
-                        y: y + sinHalfOffset
+                        y: y + sinHalfOffset,
                     },
                     br: {
                         x: x + sinHalfOffset,
-                        y: y + cosHalfOffset
-                    }
+                        y: y + cosHalfOffset,
+                    },
                 };
             }
         },
