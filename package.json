@@ -7,7 +7,7 @@
     "grunt-contrib-uglify": "^3.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "jit-grunt": "^0.10.0",
-    "eslint": "^3.18.0"
+    "eslint": "^6.6.0"
   },
   "author": "SK",
   "license": "MIT",
