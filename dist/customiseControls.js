@@ -563,7 +563,7 @@
                         case 'mb':
                             if (e[this.altActionKey]) {
                                 return e[this.altActionKey]
-                                    ? 'skewY'
+                                    ? 'skewX'
                                     : 'scaleY';
                             }
                             return this[corner + 'Action'];
