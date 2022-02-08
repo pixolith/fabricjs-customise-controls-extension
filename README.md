@@ -1,3 +1,5 @@
+# No longer under active development
+
 # Customise the controls of fabric.js
 Implementation of a way of changing the icon / cursor / action of the fabric.js corner controls.
 
